@@ -22,10 +22,16 @@
  * SOFTWARE.
  */
 
-package it.unicam.cs.mpmgc.formula1.app;
+package it.unicam.cs.mpmgc.formula1.api.file;
 
-public class ConsoleApp {
-    public static void main(String[] args) {
-        System.out.println("funziona");
-    }
+import java.io.File;
+
+/**
+ * Loads a file from disk.
+ */
+public interface FileLoader {
+    /**
+     * Loads the specified file at the path.
+     */
+    File load(String path);
 }

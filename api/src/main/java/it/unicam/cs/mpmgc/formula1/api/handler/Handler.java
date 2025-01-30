@@ -22,10 +22,17 @@
  * SOFTWARE.
  */
 
-package it.unicam.cs.mpmgc.formula1.app;
+package it.unicam.cs.mpmgc.formula1.api.handler;
 
-public class ConsoleApp {
-    public static void main(String[] args) {
-        System.out.println("funziona");
-    }
+/**
+ * Represents those objects that have the responsibility to handle core
+ * mechanics of the game.
+ * @param <T> The type of data the Handler works with.
+ */
+public interface Handler<T> {
+    /**
+     * Depending on the Handler, this method will return the "handled" data.
+     * @return the "Handled" data.
+     */
+    T handle();
 }

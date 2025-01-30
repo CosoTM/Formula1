@@ -22,10 +22,14 @@
  * SOFTWARE.
  */
 
-package it.unicam.cs.mpmgc.formula1.app;
+package it.unicam.cs.mpmgc.formula1.api.configurator;
 
-public class ConsoleApp {
-    public static void main(String[] args) {
-        System.out.println("funziona");
-    }
+import it.unicam.cs.mpmgc.formula1.api.simulation.Simulation;
+
+/**
+ * Configures a
+ * {@link it.unicam.cs.mpmgc.formula1.api.simulation.Simulation Simulation}.
+ */
+public interface Configurator {
+    Simulation configure();
 }

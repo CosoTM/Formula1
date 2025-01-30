@@ -22,10 +22,12 @@
  * SOFTWARE.
  */
 
-package it.unicam.cs.mpmgc.formula1.app;
+package it.unicam.cs.mpmgc.formula1.api.track;
 
-public class ConsoleApp {
-    public static void main(String[] args) {
-        System.out.println("funziona");
-    }
+/**
+ * Represents a Formula1 track.
+ * @param <T> The type of object the Track is made of.
+ */
+public interface Track<T> {
+
 }

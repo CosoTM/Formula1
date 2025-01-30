@@ -22,10 +22,20 @@
  * SOFTWARE.
  */
 
-package it.unicam.cs.mpmgc.formula1.app;
+package it.unicam.cs.mpmgc.formula1.api.simulation;
 
-public class ConsoleApp {
-    public static void main(String[] args) {
-        System.out.println("funziona");
-    }
+/**
+ * Represents a Game Simulation.
+ */
+public interface Simulation {
+
+    /**
+     * Starts the simulation.
+     */
+    void start();
+
+    /**
+     * Makes a step forward in the Simulation.
+     */
+    void step();
 }
