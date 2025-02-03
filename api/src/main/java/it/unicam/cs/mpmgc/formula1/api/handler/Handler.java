@@ -25,8 +25,8 @@
 package it.unicam.cs.mpmgc.formula1.api.handler;
 
 /**
- * Represents those objects that have the responsibility to handle core
- * mechanics of the game.
+ * Represents those objects that have the responsibility to handle and load core
+ * mechanics and data of the game.
  * @param <T> The type of data the Handler works with.
  */
 public interface Handler<T> {

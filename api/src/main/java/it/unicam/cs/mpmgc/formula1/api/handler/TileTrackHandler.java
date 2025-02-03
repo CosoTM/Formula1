@@ -22,28 +22,39 @@
  * SOFTWARE.
  */
 
-package it.unicam.cs.mpmgc.formula1.api.file;
+package it.unicam.cs.mpmgc.formula1.api.handler;
+
+import it.unicam.cs.mpmgc.formula1.api.entity.Entity;
+import it.unicam.cs.mpmgc.formula1.api.track.TileTrack;
 
 import java.io.File;
-import java.net.URL;
+import java.io.FileNotFoundException;
+import java.util.Scanner;
 
 /**
- * Loads a file from disk.
+ * Handles and loads everything that has to do with the {@link TileTrack}
+ * for the game simulation.
  */
-public interface FileLoader {
-    /**
-     * Loads the specified file at the path.
-     */
-    static File load(String fileName){
-        ClassLoader classLoader = FileLoader.class.getClassLoader();
-        URL res = classLoader.getResource(fileName);
+public class TileTrackHandler implements Handler<TileTrack>{
+    private final File file;
 
-        if(res != null){
-            String path = res.getPath();
-            return new File(path);
+    public TileTrackHandler(File file) {
+        this.file = file;
+    }
+
+
+    @Override
+    public TileTrack handle() {
+        try {
+            Scanner scanner = new Scanner(file);
+
+
+
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
         }
 
-        // TODO: rivist
+
         return null;
     }
 }

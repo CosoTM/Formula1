@@ -22,28 +22,12 @@
  * SOFTWARE.
  */
 
-package it.unicam.cs.mpmgc.formula1.api.file;
+package it.unicam.cs.mpmgc.formula1.api.entity;
 
-import java.io.File;
-import java.net.URL;
 
 /**
- * Loads a file from disk.
+ * Represents an Entity in the game, that moves and behaves in a specific way.
  */
-public interface FileLoader {
-    /**
-     * Loads the specified file at the path.
-     */
-    static File load(String fileName){
-        ClassLoader classLoader = FileLoader.class.getClassLoader();
-        URL res = classLoader.getResource(fileName);
+public interface Entity {
 
-        if(res != null){
-            String path = res.getPath();
-            return new File(path);
-        }
-
-        // TODO: rivist
-        return null;
-    }
 }

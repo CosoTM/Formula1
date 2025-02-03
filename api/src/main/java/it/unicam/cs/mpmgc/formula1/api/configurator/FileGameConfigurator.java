@@ -22,28 +22,32 @@
  * SOFTWARE.
  */
 
-package it.unicam.cs.mpmgc.formula1.api.file;
+package it.unicam.cs.mpmgc.formula1.api.configurator;
+
+import it.unicam.cs.mpmgc.formula1.api.handler.EntityHandler;
+import it.unicam.cs.mpmgc.formula1.api.handler.TileTrackHandler;
+import it.unicam.cs.mpmgc.formula1.api.simulation.Simulation;
 
 import java.io.File;
-import java.net.URL;
 
 /**
- * Loads a file from disk.
+ * Configures a {@link it.unicam.cs.mpmgc.formula1.api.simulation.Simulation
+ * Simulation} via a file.
  */
-public interface FileLoader {
-    /**
-     * Loads the specified file at the path.
-     */
-    static File load(String fileName){
-        ClassLoader classLoader = FileLoader.class.getClassLoader();
-        URL res = classLoader.getResource(fileName);
+public class FileGameConfigurator implements Configurator{
 
-        if(res != null){
-            String path = res.getPath();
-            return new File(path);
-        }
+    private final File gameFile;
 
-        // TODO: rivist
+    public FileGameConfigurator(File gameFile) {
+        this.gameFile = gameFile;
+    }
+
+    @Override
+    public Simulation configure() {
+        TileTrackHandler trackHandler = new TileTrackHandler(gameFile);
+        EntityHandler entityHandler = new EntityHandler(gameFile);
+
+
         return null;
     }
 }

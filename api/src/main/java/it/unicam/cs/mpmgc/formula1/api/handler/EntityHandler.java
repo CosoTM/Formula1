@@ -22,28 +22,25 @@
  * SOFTWARE.
  */
 
-package it.unicam.cs.mpmgc.formula1.api.file;
+package it.unicam.cs.mpmgc.formula1.api.handler;
+
+import it.unicam.cs.mpmgc.formula1.api.entity.Entity;
 
 import java.io.File;
-import java.net.URL;
 
 /**
- * Loads a file from disk.
+ * Handles and loads everything that has to do with the {@link Entity Entities}
+ * of the game simulation.
  */
-public interface FileLoader {
-    /**
-     * Loads the specified file at the path.
-     */
-    static File load(String fileName){
-        ClassLoader classLoader = FileLoader.class.getClassLoader();
-        URL res = classLoader.getResource(fileName);
+public class EntityHandler implements Handler<Entity[]>{
+    private final File file;
 
-        if(res != null){
-            String path = res.getPath();
-            return new File(path);
-        }
+    public EntityHandler(File file) {
+        this.file = file;
+    }
 
-        // TODO: rivist
+    @Override
+    public Entity[] handle() {
         return null;
     }
 }

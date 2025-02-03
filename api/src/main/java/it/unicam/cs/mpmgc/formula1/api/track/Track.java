@@ -24,10 +24,13 @@
 
 package it.unicam.cs.mpmgc.formula1.api.track;
 
+import java.util.Collection;
+
 /**
  * Represents a Formula1 track.
  * @param <T> The type of object the Track is made of.
  */
 public interface Track<T> {
+
 
 }
