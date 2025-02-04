@@ -22,14 +22,14 @@
  * SOFTWARE.
  */
 
-package it.unicam.cs.mpmgc.formula1.api.simulation;
+package it.unicam.cs.mpmgc.formula1.api.strategy;
 
-/**
- * Represents a Game Simulation.
- */
-public interface Simulation {
-    /**
-     * Makes a step forward in the Simulation.
-     */
-    void step();
+import it.unicam.cs.mpmgc.formula1.api.entity.Entity;
+import it.unicam.cs.mpmgc.formula1.api.simulation.Simulation;
+
+public class SimpleStrategy implements Strategy{
+    @Override
+    public void decideNextMove(Entity entity, Simulation sim) {
+        System.out.println("simple");
+    }
 }

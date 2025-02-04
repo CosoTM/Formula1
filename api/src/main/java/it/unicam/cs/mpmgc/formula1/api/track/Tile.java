@@ -24,6 +24,9 @@
 
 package it.unicam.cs.mpmgc.formula1.api.track;
 
+/**
+ * Lists all possible Tiles for a {@link TileTrack} and what they represent.
+ */
 public enum Tile {
     WALL('#'),
     START('^'),
@@ -34,5 +37,12 @@ public enum Tile {
 
     Tile(char tile) {
         this.tile = tile;
+    }
+
+    public static Tile charToTile(char character){
+        for (Tile tile : Tile.values())
+            if (tile.tile == character) return tile;
+
+        return null;
     }
 }

@@ -22,14 +22,18 @@
  * SOFTWARE.
  */
 
-package it.unicam.cs.mpmgc.formula1.api.simulation;
+package it.unicam.cs.mpmgc.formula1.api.entity;
+
+import it.unicam.cs.mpmgc.formula1.api.strategy.Strategy;
 
 /**
- * Represents a Game Simulation.
+ *
  */
-public interface Simulation {
-    /**
-     * Makes a step forward in the Simulation.
-     */
-    void step();
+public class CarEntity extends GameEntity{
+    private final Strategy strategy;
+
+    public CarEntity(Strategy strategy) {
+        this.strategy = strategy;
+    }
+
 }

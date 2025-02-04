@@ -12,4 +12,8 @@
 #..................#
 ####################
 $
-
+simple-bot
+random-bot
+simple-bot
+player
+simple-bot

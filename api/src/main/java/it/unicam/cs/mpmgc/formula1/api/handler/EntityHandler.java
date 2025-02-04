@@ -24,23 +24,49 @@
 
 package it.unicam.cs.mpmgc.formula1.api.handler;
 
+import it.unicam.cs.mpmgc.formula1.api.entity.CarEntity;
 import it.unicam.cs.mpmgc.formula1.api.entity.Entity;
+import it.unicam.cs.mpmgc.formula1.api.strategy.Strategy;
+import it.unicam.cs.mpmgc.formula1.api.strategy.StrategyFactory;
+import it.unicam.cs.mpmgc.formula1.api.strategy.StrategyString;
 
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.*;
 
 /**
  * Handles and loads everything that has to do with the {@link Entity Entities}
  * of the game simulation.
  */
-public class EntityHandler implements Handler<Entity[]>{
+public class EntityHandler implements Handler<List<Entity>>{
     private final File file;
+    //private final Map<StrategyString, Strategy> strategyMap = new HashMap<>();
 
     public EntityHandler(File file) {
         this.file = file;
     }
 
     @Override
-    public Entity[] handle() {
+    public List<Entity> handle() {
+        // TODO: could remove the use of "$" as a separator to make code lighter
+        try {
+            Scanner scanner = new Scanner(file);
+            String currentLine = "";
+
+            while(scanner.hasNextLine() || !currentLine.equals("$")) currentLine = scanner.nextLine();
+
+            List<Entity> entities = new ArrayList<>();
+            while(scanner.hasNextLine()){
+                StrategyString strat = StrategyString.stringToStrategy(scanner.nextLine());
+                entities.add(new CarEntity(StrategyFactory.buildStrategy(strat)));
+            }
+            scanner.close();
+
+            return entities;
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+
         return null;
     }
 }

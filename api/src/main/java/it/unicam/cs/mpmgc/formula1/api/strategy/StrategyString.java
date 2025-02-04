@@ -22,14 +22,25 @@
  * SOFTWARE.
  */
 
-package it.unicam.cs.mpmgc.formula1.api.simulation;
+package it.unicam.cs.mpmgc.formula1.api.strategy;
 
 /**
- * Represents a Game Simulation.
+ * Lists all possible {@link Strategy}.
  */
-public interface Simulation {
-    /**
-     * Makes a step forward in the Simulation.
-     */
-    void step();
+public enum StrategyString {
+    STOPPED_STRATEGY("stopped-bot"),
+    RANDOM_STRATEGY("random-bot"),
+    SIMPLE_STRATEGY("simple-bot"),
+    PLAYER_STRATEGY("player");
+
+    private final String strategy;
+
+    StrategyString(String strategy) {this.strategy = strategy;}
+
+    public static StrategyString stringToStrategy(String strategy){
+        String lowercase = strategy.toLowerCase();
+        for (StrategyString strat : StrategyString.values())
+            if (strat.strategy.equals(lowercase)) return strat;
+        return null;
+    }
 }

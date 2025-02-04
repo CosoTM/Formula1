@@ -24,8 +24,15 @@
 
 package it.unicam.cs.mpmgc.formula1.api.track;
 
+import java.util.List;
+
 /**
  *
  */
-public class TileTrack implements Track<Tile>{
+public class TileTrack implements Track{
+    public final List<List<Tile>> track;
+
+    public TileTrack(List<List<Tile>> track) {
+        this.track = track;
+    }
 }

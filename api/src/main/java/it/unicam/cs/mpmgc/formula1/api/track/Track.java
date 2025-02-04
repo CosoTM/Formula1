@@ -28,9 +28,8 @@ import java.util.Collection;
 
 /**
  * Represents a Formula1 track.
- * @param <T> The type of object the Track is made of.
  */
-public interface Track<T> {
+public interface Track {
 
 
 }

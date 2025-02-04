@@ -25,6 +25,8 @@
 package it.unicam.cs.mpmgc.formula1.api.entity;
 
 
+import it.unicam.cs.mpmgc.formula1.api.strategy.Strategy;
+
 /**
  * Represents an Entity in the game, that moves and behaves in a specific way.
  */

@@ -24,11 +24,15 @@
 
 package it.unicam.cs.mpmgc.formula1.api.configurator;
 
+import it.unicam.cs.mpmgc.formula1.api.entity.Entity;
 import it.unicam.cs.mpmgc.formula1.api.handler.EntityHandler;
 import it.unicam.cs.mpmgc.formula1.api.handler.TileTrackHandler;
+import it.unicam.cs.mpmgc.formula1.api.simulation.GameSimulation;
 import it.unicam.cs.mpmgc.formula1.api.simulation.Simulation;
+import it.unicam.cs.mpmgc.formula1.api.track.Track;
 
 import java.io.File;
+import java.util.List;
 
 /**
  * Configures a {@link it.unicam.cs.mpmgc.formula1.api.simulation.Simulation
@@ -45,9 +49,11 @@ public class FileGameConfigurator implements Configurator{
     @Override
     public Simulation configure() {
         TileTrackHandler trackHandler = new TileTrackHandler(gameFile);
+        Track track = trackHandler.handle();
+
         EntityHandler entityHandler = new EntityHandler(gameFile);
+        List<Entity> entities = entityHandler.handle();
 
-
-        return null;
+        return new GameSimulation(track, entities);
     }
 }

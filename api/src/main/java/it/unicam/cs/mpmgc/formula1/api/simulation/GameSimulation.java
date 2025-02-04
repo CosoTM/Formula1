@@ -24,12 +24,22 @@
 
 package it.unicam.cs.mpmgc.formula1.api.simulation;
 
-/**
- * Represents a Game Simulation.
- */
-public interface Simulation {
-    /**
-     * Makes a step forward in the Simulation.
-     */
-    void step();
+import it.unicam.cs.mpmgc.formula1.api.entity.Entity;
+import it.unicam.cs.mpmgc.formula1.api.track.Track;
+
+import java.util.List;
+
+public class GameSimulation implements Simulation{
+    private final Track track;
+    private final List<Entity> entities;
+
+    public GameSimulation(Track track, List<Entity> entities) {
+        this.track = track;
+        this.entities = entities;
+    }
+
+    @Override
+    public void step() {
+
+    }
 }

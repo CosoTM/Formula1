@@ -22,14 +22,7 @@
  * SOFTWARE.
  */
 
-package it.unicam.cs.mpmgc.formula1.api.simulation;
+package it.unicam.cs.mpmgc.formula1.api.entity;
 
-/**
- * Represents a Game Simulation.
- */
-public interface Simulation {
-    /**
-     * Makes a step forward in the Simulation.
-     */
-    void step();
+public abstract class GameEntity implements Entity{
 }

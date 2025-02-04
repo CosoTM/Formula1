@@ -22,14 +22,17 @@
  * SOFTWARE.
  */
 
-package it.unicam.cs.mpmgc.formula1.api.simulation;
+package it.unicam.cs.mpmgc.formula1.api.strategy;
 
-/**
- * Represents a Game Simulation.
- */
-public interface Simulation {
-    /**
-     * Makes a step forward in the Simulation.
-     */
-    void step();
+public final class StrategyFactory {
+    public static Strategy buildStrategy(StrategyString strat){
+        return switch (strat){
+            case STOPPED_STRATEGY-> null;
+            case RANDOM_STRATEGY -> null;
+            case SIMPLE_STRATEGY -> null;
+            case PLAYER_STRATEGY -> null;
+            case null -> null;
+        };
+
+    }
 }
