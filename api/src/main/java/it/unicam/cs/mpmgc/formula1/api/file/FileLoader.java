@@ -25,7 +25,9 @@
 package it.unicam.cs.mpmgc.formula1.api.file;
 
 import java.io.File;
+import java.io.UnsupportedEncodingException;
 import java.net.URL;
+import java.net.URLDecoder;
 
 /**
  * Loads a file from disk.
@@ -38,9 +40,12 @@ public interface FileLoader {
         ClassLoader classLoader = FileLoader.class.getClassLoader();
         URL res = classLoader.getResource(fileName);
 
-        if(res != null){
-            String path = res.getPath();
-            return new File(path);
+        if(res != null) {
+            try {
+                return new File(URLDecoder.decode(res.getPath(), "UTF-8"));
+            } catch (UnsupportedEncodingException e) {
+                e.printStackTrace();
+            }
         }
 
         // TODO: rivist

@@ -47,18 +47,18 @@ public class TileTrackHandler implements Handler<TileTrack>{
 
     @Override
     public TileTrack handle() {
-        // TODO: could remove the use of "$" as a separator to make code lighter
         try {
             Scanner scanner = new Scanner(file);
             List<List<Tile>> tileMatrix = new ArrayList<>();
 
-            String currentLine = "";
+            String currentLine = scanner.nextLine();
             int i = 0;
-            while(scanner.hasNextLine() || !currentLine.equals("$")){
-                currentLine = scanner.nextLine();
+            while(!currentLine.equals("$")){
                 tileMatrix.add(new ArrayList<>());
                 for (int j = 0; j < currentLine.length(); j++)
                     tileMatrix.get(i).add(Tile.charToTile(currentLine.charAt(j)));
+
+                currentLine = scanner.nextLine();
                 i++;
             }
             scanner.close();

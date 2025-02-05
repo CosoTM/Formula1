@@ -22,14 +22,12 @@
  * SOFTWARE.
  */
 
-package it.unicam.cs.mpmgc.formula1.api.strategy;
+package it.unicam.cs.mpmgc.formula1.api.vector;
 
-import it.unicam.cs.mpmgc.formula1.api.entity.Entity;
-import it.unicam.cs.mpmgc.formula1.api.simulation.Simulation;
-
-public class StoppedStrategy implements Strategy{
-    @Override
-    public void decideNextMove(Entity entity, Simulation sim) {
-        System.out.println("stopped");
-    }
+/**
+ * Represent a Vector in 2d Space.
+ */
+public interface Vector2D {
+    int x();
+    int y();
 }

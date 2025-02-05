@@ -22,25 +22,19 @@
  * SOFTWARE.
  */
 
-package it.unicam.cs.mpmgc.formula1.api.entity;
+package it.unicam.cs.mpmgc.formula1.api.file;
 
-import it.unicam.cs.mpmgc.formula1.api.simulation.Simulation;
-import it.unicam.cs.mpmgc.formula1.api.strategy.Strategy;
-import it.unicam.cs.mpmgc.formula1.api.vector.Position;
+import org.junit.jupiter.api.Test;
 
-/**
- *
- */
-public class CarEntity extends GameEntity{
-    private final Strategy strategy;
+import java.io.File;
 
-    public CarEntity(Position startPos, char name, Strategy strategy) {
-        super(startPos, name);
-        this.strategy = strategy;
-    }
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
-    @Override
-    public void nextMove(Simulation sim) {
-        strategy.decideNextMove(this, sim);
+public class FileTest {
+
+    @Test
+    void testExistingFileLoading(){
+        File f = FileLoader.load("raceConfigTest1.txt");
+        assertNotNull(f);
     }
 }

@@ -24,12 +24,45 @@
 
 package it.unicam.cs.mpmgc.formula1.api.track;
 
+import it.unicam.cs.mpmgc.formula1.api.entity.Entity;
+import it.unicam.cs.mpmgc.formula1.api.vector.Position;
+
 import java.util.Collection;
+import java.util.List;
 
 /**
  * Represents a Formula1 track.
  */
 public interface Track {
+    /**
+     * Returns the whole Track.
+     * @return the whole Track.
+     */
+    List<List<Tile>> getWholeTrack();
 
+    /**
+     * Checks if the position is valid inside the Track. "Valid" means being in
+     * the limits of the Track.
+     * @param pos Position to check.
+     * @return true if its valid, false otherwise.
+     */
+    boolean isPositionValid(Position pos);
 
+    /**
+     * Checks if a position is inside the Track. "Inside" means being inside the
+     * walls of the track. If the position is on a wall for example, it's NOT
+     * inside the Track.
+     * @param pos Position to Check
+     * @return true if its inside, false otherwise.
+     */
+    boolean isPositionInsideTrack(Position pos);
+
+    /**
+     * Checks if an entity is inside the Track. "Inside" means being inside the
+     * walls of the track. If the entity is on a wall for example, it's NOT
+     * inside the Track.
+     * @param entity Entity to Check
+     * @return true if its inside, false otherwise.
+     */
+    boolean isEntityInsideTrack(Entity entity);
 }

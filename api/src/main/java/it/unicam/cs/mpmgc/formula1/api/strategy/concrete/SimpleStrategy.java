@@ -22,25 +22,15 @@
  * SOFTWARE.
  */
 
-package it.unicam.cs.mpmgc.formula1.api.entity;
+package it.unicam.cs.mpmgc.formula1.api.strategy.concrete;
 
+import it.unicam.cs.mpmgc.formula1.api.entity.Entity;
 import it.unicam.cs.mpmgc.formula1.api.simulation.Simulation;
 import it.unicam.cs.mpmgc.formula1.api.strategy.Strategy;
-import it.unicam.cs.mpmgc.formula1.api.vector.Position;
 
-/**
- *
- */
-public class CarEntity extends GameEntity{
-    private final Strategy strategy;
-
-    public CarEntity(Position startPos, char name, Strategy strategy) {
-        super(startPos, name);
-        this.strategy = strategy;
-    }
-
+public class SimpleStrategy implements Strategy {
     @Override
-    public void nextMove(Simulation sim) {
-        strategy.decideNextMove(this, sim);
+    public void decideNextMove(Entity entity, Simulation sim) {
+        System.out.println("simple");
     }
 }

@@ -22,14 +22,35 @@
  * SOFTWARE.
  */
 
-package it.unicam.cs.mpmgc.formula1.api.strategy;
+package it.unicam.cs.mpmgc.formula1.api.handler;
 
 import it.unicam.cs.mpmgc.formula1.api.entity.Entity;
-import it.unicam.cs.mpmgc.formula1.api.simulation.Simulation;
+import it.unicam.cs.mpmgc.formula1.api.file.FileLoader;
+import it.unicam.cs.mpmgc.formula1.api.track.TileTrack;
+import org.junit.jupiter.api.Test;
 
-public class SimpleStrategy implements Strategy{
-    @Override
-    public void decideNextMove(Entity entity, Simulation sim) {
-        System.out.println("simple");
+import java.io.File;
+import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.*;
+
+public class EntityHandlerTest {
+    @Test
+    void CheckForTileTrackExistence(){
+        File f = FileLoader.load("raceConfigTest1.txt");
+        EntityHandler e = new EntityHandler(f);
+        List<Entity> entities = e.handle();
+
+        assertNotNull(entities);
+        assertNotEquals(0, entities.size());
+    }
+
+    @Test
+    void CheckNumberOfEntitiesTest(){
+        File f = FileLoader.load("raceConfigTest1.txt");
+        EntityHandler e = new EntityHandler(f);
+        List<Entity> entities = e.handle();
+
+        assertEquals(5, entities.size());
     }
 }

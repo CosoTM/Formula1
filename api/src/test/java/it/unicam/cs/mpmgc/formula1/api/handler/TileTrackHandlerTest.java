@@ -22,25 +22,42 @@
  * SOFTWARE.
  */
 
-package it.unicam.cs.mpmgc.formula1.api.entity;
+package it.unicam.cs.mpmgc.formula1.api.handler;
 
-import it.unicam.cs.mpmgc.formula1.api.simulation.Simulation;
-import it.unicam.cs.mpmgc.formula1.api.strategy.Strategy;
-import it.unicam.cs.mpmgc.formula1.api.vector.Position;
+import it.unicam.cs.mpmgc.formula1.api.entity.Entity;
+import it.unicam.cs.mpmgc.formula1.api.file.FileLoader;
+import it.unicam.cs.mpmgc.formula1.api.track.Tile;
+import it.unicam.cs.mpmgc.formula1.api.track.TileTrack;
+import org.junit.jupiter.api.Test;
 
-/**
- *
- */
-public class CarEntity extends GameEntity{
-    private final Strategy strategy;
+import java.io.File;
+import java.util.List;
 
-    public CarEntity(Position startPos, char name, Strategy strategy) {
-        super(startPos, name);
-        this.strategy = strategy;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+
+public class TileTrackHandlerTest {
+
+    @Test
+    void CheckForTileTrackExistence(){
+        File f = FileLoader.load("raceConfigTest1.txt");
+        TileTrackHandler e = new TileTrackHandler(f);
+        TileTrack tiles = e.handle();
+
+        assertNotNull(tiles);
     }
 
-    @Override
-    public void nextMove(Simulation sim) {
-        strategy.decideNextMove(this, sim);
+    @Test
+    void CheckForNumberOfTilesTest(){
+        File f = FileLoader.load("raceConfigTest1.txt");
+        TileTrackHandler e = new TileTrackHandler(f);
+        TileTrack tiles = e.handle();
+
+        int i=0;
+        for (List<Tile> rows: tiles.track) {
+            assertEquals(20, rows.size());
+            i++;
+        }
+        assertEquals(13, i);
     }
 }

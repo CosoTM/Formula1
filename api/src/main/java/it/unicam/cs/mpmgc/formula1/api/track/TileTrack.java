@@ -24,6 +24,9 @@
 
 package it.unicam.cs.mpmgc.formula1.api.track;
 
+import it.unicam.cs.mpmgc.formula1.api.entity.Entity;
+import it.unicam.cs.mpmgc.formula1.api.vector.Position;
+
 import java.util.List;
 
 /**
@@ -35,4 +38,31 @@ public class TileTrack implements Track{
     public TileTrack(List<List<Tile>> track) {
         this.track = track;
     }
+
+    @Override
+    public List<List<Tile>> getWholeTrack() {
+        return track;
+    }
+
+    @Override
+    public boolean isPositionValid(Position pos) {
+        if(pos.x() < 0 || pos.y() < 0)          return false;
+        if(pos.y() > track.size())              return false;
+        if(pos.x() > track.get(pos.y()).size()) return false;
+        return true;
+    }
+
+    @Override
+    public boolean isPositionInsideTrack(Position pos) {
+        if(!isPositionValid(pos))                        return false;
+        if(track.get(pos.y()).get(pos.x()) == Tile.WALL) return false;
+        return true;
+    }
+
+    @Override
+    public boolean isEntityInsideTrack(Entity entity) {
+        Position entityPos = entity.getPosition();
+        return isPositionInsideTrack(entityPos);
+    }
+
 }

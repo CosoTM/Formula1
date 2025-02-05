@@ -24,5 +24,26 @@
 
 package it.unicam.cs.mpmgc.formula1.api.entity;
 
+import it.unicam.cs.mpmgc.formula1.api.vector.Position;
+
 public abstract class GameEntity implements Entity{
+    private final char name;
+    private Position currentPosition;
+    private boolean isAlive;
+
+    public GameEntity(Position startPos, char name){
+        currentPosition = startPos;
+        this.name = name;
+
+        isAlive = true;
+    }
+
+    @Override
+    public char getName() {return name;}
+    @Override
+    public Position getPosition() {return currentPosition;}
+    @Override
+    public void setPosition(Position pos){currentPosition=pos;}
+    @Override
+    public boolean isAlive() {return isAlive;}
 }

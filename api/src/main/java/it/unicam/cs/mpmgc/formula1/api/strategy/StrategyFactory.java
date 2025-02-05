@@ -24,14 +24,28 @@
 
 package it.unicam.cs.mpmgc.formula1.api.strategy;
 
+import it.unicam.cs.mpmgc.formula1.api.strategy.concrete.SimpleStrategy;
+import it.unicam.cs.mpmgc.formula1.api.strategy.concrete.StoppedStrategy;
+
+/**
+ * Factory for Strategies.
+ */
 public final class StrategyFactory {
+    /**
+     * Given a {@link StrategyString} it gives out the related
+     * {@link Strategy} class. If null is passed for any reason, the
+     * {@link StoppedStrategy} is returned.
+     * @param strat The {@link StrategyString} enum
+     * @return The related {@link Strategy} class. Precisely a
+     * {@link StoppedStrategy} if null.
+     */
     public static Strategy buildStrategy(StrategyString strat){
         return switch (strat){
-            case STOPPED_STRATEGY-> null;
+            case STOPPED_STRATEGY-> new StoppedStrategy();
             case RANDOM_STRATEGY -> null;
-            case SIMPLE_STRATEGY -> null;
+            case SIMPLE_STRATEGY -> new SimpleStrategy();
             case PLAYER_STRATEGY -> null;
-            case null -> null;
+            case null -> new StoppedStrategy();
         };
 
     }

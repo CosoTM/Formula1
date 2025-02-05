@@ -13,7 +13,7 @@
 ####################
 $
 simple-bot A
-random-bot B
+stopped-bot B
 simple-bot C
 player D
 simple-bot E

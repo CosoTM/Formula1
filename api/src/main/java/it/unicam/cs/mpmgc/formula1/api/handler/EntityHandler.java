@@ -29,6 +29,7 @@ import it.unicam.cs.mpmgc.formula1.api.entity.Entity;
 import it.unicam.cs.mpmgc.formula1.api.strategy.Strategy;
 import it.unicam.cs.mpmgc.formula1.api.strategy.StrategyFactory;
 import it.unicam.cs.mpmgc.formula1.api.strategy.StrategyString;
+import it.unicam.cs.mpmgc.formula1.api.vector.Position;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -40,7 +41,6 @@ import java.util.*;
  */
 public class EntityHandler implements Handler<List<Entity>>{
     private final File file;
-    //private final Map<StrategyString, Strategy> strategyMap = new HashMap<>();
 
     public EntityHandler(File file) {
         this.file = file;
@@ -53,12 +53,17 @@ public class EntityHandler implements Handler<List<Entity>>{
             Scanner scanner = new Scanner(file);
             String currentLine = "";
 
-            while(scanner.hasNextLine() || !currentLine.equals("$")) currentLine = scanner.nextLine();
+            while(!currentLine.equals("$"))
+                currentLine = scanner.nextLine();
+
 
             List<Entity> entities = new ArrayList<>();
             while(scanner.hasNextLine()){
-                StrategyString strat = StrategyString.stringToStrategy(scanner.nextLine());
-                entities.add(new CarEntity(StrategyFactory.buildStrategy(strat)));
+                String[] l = scanner.nextLine().split("\\s+");
+                entities.add(createCarEntity(
+                        StrategyString.stringToStrategy(l[0]),
+                        l[1].charAt(0)) //TODO: this fails completely if in the config file there's nothing after the bot
+                );
             }
             scanner.close();
 
@@ -68,5 +73,13 @@ public class EntityHandler implements Handler<List<Entity>>{
         }
 
         return null;
+    }
+
+    private CarEntity createCarEntity(StrategyString strat, char name){
+        return new CarEntity(
+          new Position(0,0),
+          name,
+          StrategyFactory.buildStrategy(strat)
+        );
     }
 }

@@ -22,25 +22,13 @@
  * SOFTWARE.
  */
 
-package it.unicam.cs.mpmgc.formula1.api.entity;
+package it.unicam.cs.mpmgc.formula1.api.vector;
 
-import it.unicam.cs.mpmgc.formula1.api.simulation.Simulation;
-import it.unicam.cs.mpmgc.formula1.api.strategy.Strategy;
-import it.unicam.cs.mpmgc.formula1.api.vector.Position;
-
-/**
- *
- */
-public class CarEntity extends GameEntity{
-    private final Strategy strategy;
-
-    public CarEntity(Position startPos, char name, Strategy strategy) {
-        super(startPos, name);
-        this.strategy = strategy;
-    }
+public record Position(int x, int y) implements Vector2D {
 
     @Override
-    public void nextMove(Simulation sim) {
-        strategy.decideNextMove(this, sim);
-    }
+    public int x() {return x;}
+
+    @Override
+    public int y() {return y;}
 }

@@ -25,11 +25,47 @@
 package it.unicam.cs.mpmgc.formula1.api.entity;
 
 
-import it.unicam.cs.mpmgc.formula1.api.strategy.Strategy;
+import it.unicam.cs.mpmgc.formula1.api.simulation.Simulation;
+import it.unicam.cs.mpmgc.formula1.api.vector.Position;
 
 /**
  * Represents an Entity in the game, that moves and behaves in a specific way.
+ *
+ * Every entity has a name to recognize them, a position in-game, can decide
+ * what to do next depending on the state of the Simulation, and could be
+ * "alive" or not.
  */
 public interface Entity {
+
+    /**
+     * Returns the Entity name.
+     * @return the Entity name.
+     */
+    char getName();
+
+    /**
+     * Returns the current position of the Entity.
+     * @return the current position of the Entity
+     */
+    Position getPosition();
+
+    /**
+     * Modifies the current position of the Entity.
+     * @param pos The new position of the Entity.
+     */
+    void setPosition(Position pos);
+
+    /**
+     * Decides what the Entity should do given the current state of the
+     * Simulation.
+     * @param sim The simulation.
+     */
+    void nextMove(Simulation sim);
+
+    /**
+     * Return true if the Entity is alive, false otherwise.
+     * @return true if the Entity is alive, false otherwise.
+     */
+    boolean isAlive();
 
 }
