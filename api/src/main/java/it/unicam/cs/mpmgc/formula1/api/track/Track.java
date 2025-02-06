@@ -24,10 +24,10 @@
 
 package it.unicam.cs.mpmgc.formula1.api.track;
 
+import it.unicam.cs.mpmgc.formula1.api.entity.CarEntity;
 import it.unicam.cs.mpmgc.formula1.api.entity.Entity;
-import it.unicam.cs.mpmgc.formula1.api.vector.Position;
+import it.unicam.cs.mpmgc.formula1.api.vector.Vector2;
 
-import java.util.Collection;
 import java.util.List;
 
 /**
@@ -46,7 +46,7 @@ public interface Track {
      * @param pos Position to check.
      * @return true if its valid, false otherwise.
      */
-    boolean isPositionValid(Position pos);
+    boolean isPositionValid(Vector2 pos);
 
     /**
      * Checks if a position is inside the Track. "Inside" means being inside the
@@ -55,7 +55,7 @@ public interface Track {
      * @param pos Position to Check
      * @return true if its inside, false otherwise.
      */
-    boolean isPositionInsideTrack(Position pos);
+    boolean isPositionInsideTrack(Vector2 pos);
 
     /**
      * Checks if an entity is inside the Track. "Inside" means being inside the
@@ -65,4 +65,11 @@ public interface Track {
      * @return true if its inside, false otherwise.
      */
     boolean isEntityInsideTrack(Entity entity);
+
+    /**
+     * Checks if a Car is on the finish line.
+     * @param car the Car that we want to check.
+     * @return true if on the finish line, false otherwise.
+     */
+    boolean isCarOnFinishLine(CarEntity car);
 }

@@ -26,14 +26,14 @@ package it.unicam.cs.mpmgc.formula1.api.entity;
 
 
 import it.unicam.cs.mpmgc.formula1.api.simulation.Simulation;
-import it.unicam.cs.mpmgc.formula1.api.vector.Position;
+import it.unicam.cs.mpmgc.formula1.api.vector.Vector2;
 
 /**
  * Represents an Entity in the game, that moves and behaves in a specific way.
  *
- * Every entity has a name to recognize them, a position in-game, can decide
- * what to do next depending on the state of the Simulation, and could be
- * "alive" or not.
+ * Every entity has a name to recognize them, a position and acceleration
+ * in-game, can decide what to do next depending on the state of the
+ * Simulation, and could be "alive" or not.
  */
 public interface Entity {
 
@@ -47,13 +47,25 @@ public interface Entity {
      * Returns the current position of the Entity.
      * @return the current position of the Entity
      */
-    Position getPosition();
+    Vector2 getPosition();
 
     /**
      * Modifies the current position of the Entity.
      * @param pos The new position of the Entity.
      */
-    void setPosition(Position pos);
+    void setPosition(Vector2 pos);
+
+    /**
+     * Returns the current acceleration of the Entity.
+     * @return the current acceleration of the Entity
+     */
+    Vector2 getAcceleration();
+
+    /**
+     * Modifies the current acceleration of the Entity.
+     * @param acc The new acceleration of the Entity.
+     */
+    void setAcceleration(Vector2 acc);
 
     /**
      * Decides what the Entity should do given the current state of the
@@ -68,4 +80,8 @@ public interface Entity {
      */
     boolean isAlive();
 
+    /**
+     * Makes the entity stop living.
+     */
+    void kill();
 }

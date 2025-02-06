@@ -25,9 +25,16 @@
 package it.unicam.cs.mpmgc.formula1.api.vector;
 
 /**
- * Represent a Vector in 2d Space.
+ * Represent a Vector in 2d with an x component and a y component.
  */
-public interface Vector2D {
-    int x();
-    int y();
+public record Vector2(int x, int y){
+    public int x() {return x;}
+    public int y() {return y;}
+
+    public Vector2 sum(Vector2 vector) {
+        return new Vector2(
+          x + vector.x,
+          y + vector.y
+        );
+    }
 }

@@ -26,10 +26,9 @@ package it.unicam.cs.mpmgc.formula1.api.handler;
 
 import it.unicam.cs.mpmgc.formula1.api.entity.CarEntity;
 import it.unicam.cs.mpmgc.formula1.api.entity.Entity;
-import it.unicam.cs.mpmgc.formula1.api.strategy.Strategy;
 import it.unicam.cs.mpmgc.formula1.api.strategy.StrategyFactory;
 import it.unicam.cs.mpmgc.formula1.api.strategy.StrategyString;
-import it.unicam.cs.mpmgc.formula1.api.vector.Position;
+import it.unicam.cs.mpmgc.formula1.api.vector.Vector2;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -48,7 +47,6 @@ public class EntityHandler implements Handler<List<Entity>>{
 
     @Override
     public List<Entity> handle() {
-        // TODO: could remove the use of "$" as a separator to make code lighter
         try {
             Scanner scanner = new Scanner(file);
             String currentLine = "";
@@ -77,7 +75,7 @@ public class EntityHandler implements Handler<List<Entity>>{
 
     private CarEntity createCarEntity(StrategyString strat, char name){
         return new CarEntity(
-          new Position(0,0),
+          new Vector2(0,0),
           name,
           StrategyFactory.buildStrategy(strat)
         );

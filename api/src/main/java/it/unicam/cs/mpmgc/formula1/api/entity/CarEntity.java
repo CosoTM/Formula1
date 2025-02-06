@@ -26,7 +26,7 @@ package it.unicam.cs.mpmgc.formula1.api.entity;
 
 import it.unicam.cs.mpmgc.formula1.api.simulation.Simulation;
 import it.unicam.cs.mpmgc.formula1.api.strategy.Strategy;
-import it.unicam.cs.mpmgc.formula1.api.vector.Position;
+import it.unicam.cs.mpmgc.formula1.api.vector.Vector2;
 
 /**
  *
@@ -34,7 +34,7 @@ import it.unicam.cs.mpmgc.formula1.api.vector.Position;
 public class CarEntity extends GameEntity{
     private final Strategy strategy;
 
-    public CarEntity(Position startPos, char name, Strategy strategy) {
+    public CarEntity(Vector2 startPos, char name, Strategy strategy) {
         super(startPos, name);
         this.strategy = strategy;
     }

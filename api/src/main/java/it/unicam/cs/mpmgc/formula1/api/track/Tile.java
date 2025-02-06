@@ -31,7 +31,8 @@ public enum Tile {
     WALL('#'),
     START('^'),
     FINISH('-'),
-    TRACK('.');
+    TRACK('.'),
+    AIR('=');
 
     private final char tile;
 

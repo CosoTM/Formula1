@@ -24,26 +24,56 @@
 
 package it.unicam.cs.mpmgc.formula1.api.entity;
 
-import it.unicam.cs.mpmgc.formula1.api.vector.Position;
+import it.unicam.cs.mpmgc.formula1.api.vector.Vector2;
 
 public abstract class GameEntity implements Entity{
     private final char name;
-    private Position currentPosition;
+    private Vector2 currentPosition;
+    private Vector2 currentAcceleration;
     private boolean isAlive;
 
-    public GameEntity(Position startPos, char name){
+    public GameEntity(Vector2 startPos, char name){
         currentPosition = startPos;
+        currentAcceleration = new Vector2(0,0);
         this.name = name;
 
         isAlive = true;
     }
 
     @Override
-    public char getName() {return name;}
+    public char getName() {
+        return name;
+    }
+
     @Override
-    public Position getPosition() {return currentPosition;}
+    public Vector2 getPosition() {
+        return currentPosition;
+    }
+
     @Override
-    public void setPosition(Position pos){currentPosition=pos;}
+    public void setPosition(Vector2 pos){
+        if (pos == null) throw new NullPointerException("Position is null");
+        currentPosition=pos;
+    }
+
     @Override
-    public boolean isAlive() {return isAlive;}
+    public Vector2 getAcceleration() {
+        return currentAcceleration;
+    }
+
+    @Override
+    public void setAcceleration(Vector2 acc) {
+        if (acc == null) throw new NullPointerException("Acceleration is null");
+        currentAcceleration=acc;
+    }
+
+    @Override
+    public boolean isAlive() {
+        return isAlive;
+    }
+
+    @Override
+    public void kill() {
+        isAlive = false;
+    }
 }
