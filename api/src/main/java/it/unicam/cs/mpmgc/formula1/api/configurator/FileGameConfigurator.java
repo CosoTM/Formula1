@@ -30,6 +30,7 @@ import it.unicam.cs.mpmgc.formula1.api.handler.TileTrackHandler;
 import it.unicam.cs.mpmgc.formula1.api.simulation.GameSimulation;
 import it.unicam.cs.mpmgc.formula1.api.simulation.Simulation;
 import it.unicam.cs.mpmgc.formula1.api.track.Track;
+import it.unicam.cs.mpmgc.formula1.api.ui.ConsoleUserInterface;
 
 import java.io.File;
 import java.util.List;
@@ -54,6 +55,8 @@ public class FileGameConfigurator implements Configurator{
         CarEntityHandler entityHandler = new CarEntityHandler(gameFile);
         List<CarEntity> entities = entityHandler.handle();
 
-        return new GameSimulation(track, entities);
+        ConsoleUserInterface UI = new ConsoleUserInterface();
+
+        return new GameSimulation(track, entities, UI);
     }
 }

@@ -27,6 +27,7 @@ package it.unicam.cs.mpmgc.formula1.api.simulation;
 import it.unicam.cs.mpmgc.formula1.api.entity.CarEntity;
 import it.unicam.cs.mpmgc.formula1.api.entity.Entity;
 import it.unicam.cs.mpmgc.formula1.api.track.Track;
+import it.unicam.cs.mpmgc.formula1.api.ui.UserInterface;
 import it.unicam.cs.mpmgc.formula1.api.vector.Vector2;
 
 import java.util.List;
@@ -34,13 +35,15 @@ import java.util.List;
 public class GameSimulation implements Simulation{
     private final Track track;
     private final List<CarEntity> cars;
+    private final UserInterface UI;
     private boolean automatic;
     private final int stepTime = 5000;
     private boolean isOngoing;
 
-    public GameSimulation(Track track, List<CarEntity> cars) {
+    public GameSimulation(Track track, List<CarEntity> cars, UserInterface UI) {
         this.track = track;
         this.cars = cars;
+        this.UI = UI;
         automatic = false;
         isOngoing = true;
 
@@ -48,19 +51,24 @@ public class GameSimulation implements Simulation{
     }
 
     @Override
-    public void step() {
+    public void step() throws InterruptedException {
         // TODO: check for user input in UI Component or check if user pressed button for automatic simulation
 
         while(isOngoing){
             // TODO: Something with UI
-            for (Entity car: getAliveEntities(cars)) {
-                // TODO: this could be placed in a method.
-                if(!car.isAlive()) continue;
-                Vector2 before = car.getPosition();
-                car.nextMove(new SimulationInfo(track, cars));
-                if(track.hasEntityCrashed(before, car.getPosition())) handleCarCrash(car);
-                if(track.isEntityOnFinishLine(car)) handlerCarWin(car);
-            }
+            Thread.sleep(stepTime);
+            UI.updateUI(new SimulationInfo(track, cars));
+            handleCars();
+        }
+    }
+
+    private void handleCars() {
+        for (Entity car: getAliveEntities(cars)) {
+            Vector2 before = car.getPosition();
+            car.nextMove(new SimulationInfo(track, cars));
+
+            if(track.hasEntityCrashed(before, car.getPosition())) handleCarCrash(car);
+            if(track.isEntityOnFinishLine(car)) handlerCarWin(car);
         }
     }
 

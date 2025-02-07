@@ -26,6 +26,8 @@ package it.unicam.cs.mpmgc.formula1.api.entity;
 
 import it.unicam.cs.mpmgc.formula1.api.vector.Vector2;
 
+import javax.swing.text.Position;
+
 public abstract class GameEntity implements Entity{
     private final char name;
     private Vector2 currentPosition;

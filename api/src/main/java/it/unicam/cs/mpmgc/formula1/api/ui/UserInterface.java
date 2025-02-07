@@ -22,21 +22,29 @@
  * SOFTWARE.
  */
 
-package it.unicam.cs.mpmgc.formula1.api.strategy.concrete;
+package it.unicam.cs.mpmgc.formula1.api.ui;
 
-import it.unicam.cs.mpmgc.formula1.api.entity.Entity;
-import it.unicam.cs.mpmgc.formula1.api.strategy.Strategy;
 import it.unicam.cs.mpmgc.formula1.api.simulation.SimulationInfo;
-import it.unicam.cs.mpmgc.formula1.api.track.Track;
-import it.unicam.cs.mpmgc.formula1.api.vector.Vector2;
 
-import java.util.Stack;
+/**
+ * Defines all the operations that the User Interface should have for this game.
+ */
+public interface UserInterface {
 
-public class SimpleStrategy implements Strategy {
-    @Override
-    public Vector2 decideNextMove(Vector2[] possiblePositions, Entity thisEntity, SimulationInfo sim) {
+    /**
+     * Updates UI given the simulation information.
+     * @param sim the Simulation Info.
+     */
+   void updateUI(SimulationInfo sim);
 
-        return null;
-    }
+    /**
+     * Checks for when the User wants to advance to the next step of the
+     * Simulation.
+     */
+   void checkForNextStep();
 
+    /**
+     * Checks for when the User wants the simulation to go automatically
+     */
+   void checkForAutomatic();
 }

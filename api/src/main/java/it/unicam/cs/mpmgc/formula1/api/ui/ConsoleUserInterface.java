@@ -22,21 +22,32 @@
  * SOFTWARE.
  */
 
-package it.unicam.cs.mpmgc.formula1.api.strategy.concrete;
+package it.unicam.cs.mpmgc.formula1.api.ui;
 
-import it.unicam.cs.mpmgc.formula1.api.entity.Entity;
-import it.unicam.cs.mpmgc.formula1.api.strategy.Strategy;
 import it.unicam.cs.mpmgc.formula1.api.simulation.SimulationInfo;
-import it.unicam.cs.mpmgc.formula1.api.track.Track;
-import it.unicam.cs.mpmgc.formula1.api.vector.Vector2;
+import it.unicam.cs.mpmgc.formula1.api.track.Tile;
 
-import java.util.Stack;
+import java.util.List;
 
-public class SimpleStrategy implements Strategy {
+public class ConsoleUserInterface implements UserInterface{
     @Override
-    public Vector2 decideNextMove(Vector2[] possiblePositions, Entity thisEntity, SimulationInfo sim) {
-
-        return null;
+    public void updateUI(SimulationInfo sim) {
+        // TODO: dont know yet what to do here
+        for (List<Tile> row : sim.track().getWholeTrack()) {
+            for (Tile tile : row) {
+                System.out.print(tile.tile());
+            }
+            System.out.println();
+        }
     }
 
+    @Override
+    public void checkForNextStep() {
+
+    }
+
+    @Override
+    public void checkForAutomatic() {
+
+    }
 }

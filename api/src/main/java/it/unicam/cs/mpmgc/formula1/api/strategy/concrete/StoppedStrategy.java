@@ -25,14 +25,16 @@
 package it.unicam.cs.mpmgc.formula1.api.strategy.concrete;
 
 import it.unicam.cs.mpmgc.formula1.api.entity.Entity;
-import it.unicam.cs.mpmgc.formula1.api.simulation.Simulation;
 import it.unicam.cs.mpmgc.formula1.api.simulation.SimulationInfo;
 import it.unicam.cs.mpmgc.formula1.api.strategy.Strategy;
+import it.unicam.cs.mpmgc.formula1.api.vector.Vector2;
 
 /**
  * A Strategy that does nothing.
  */
 public class StoppedStrategy implements Strategy {
     @Override
-    public void decideNextMove(Entity entity, SimulationInfo sim) {}
+    public Vector2 decideNextMove(Vector2[] possiblePositions, Entity thisEntity, SimulationInfo sim) {
+        return new Vector2(0,0);
+    }
 }

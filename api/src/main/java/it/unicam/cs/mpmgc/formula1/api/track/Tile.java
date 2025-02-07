@@ -46,4 +46,8 @@ public enum Tile {
 
         return null;
     }
+
+    public char tile(){
+        return tile;
+    }
 }

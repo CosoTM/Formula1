@@ -32,7 +32,7 @@ public interface Simulation {
     /**
      * Makes a step forward in the Simulation.
      */
-    void step();
+    void step() throws InterruptedException;
 
     /**
      * Toggles on or off to Manual or Automatic Simulation.

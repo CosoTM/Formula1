@@ -25,8 +25,8 @@
 package it.unicam.cs.mpmgc.formula1.api.strategy;
 
 import it.unicam.cs.mpmgc.formula1.api.entity.Entity;
-import it.unicam.cs.mpmgc.formula1.api.simulation.Simulation;
 import it.unicam.cs.mpmgc.formula1.api.simulation.SimulationInfo;
+import it.unicam.cs.mpmgc.formula1.api.vector.Vector2;
 
 /**
  * A Strategy represents how an
@@ -35,5 +35,24 @@ import it.unicam.cs.mpmgc.formula1.api.simulation.SimulationInfo;
  * depending on any type of data related to the Simulation.
  */
 public interface Strategy {
-    void decideNextMove(Entity entity, SimulationInfo sim);
+    /**
+     * Given the possible moves, the entity that applies the strategy and the
+     * rest of the simulation, this method will return one of the possible
+     * moves, decided accordingly to the strategy.
+     * @param possiblePositions The possible positions the Entity can move to.
+     * @param thisEntity The entity following the strategy.
+     * @param sim The simulation.
+     * @return One of the possible positions.
+     */
+    Vector2 decideNextMove(Vector2[] possiblePositions, Entity thisEntity,
+                           SimulationInfo sim);
+
+    /**
+     * Returns a random Vector2 from the array sent.
+     * @param possiblePositions The array of possible positions.
+     * @return a random one from the array.
+     */
+    default Vector2 decideRandomMove(Vector2[] possiblePositions){
+        return possiblePositions[(int) (Math.random() * possiblePositions.length)];
+    }
 }

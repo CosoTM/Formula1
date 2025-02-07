@@ -24,13 +24,9 @@
 
 package it.unicam.cs.mpmgc.formula1.api.entity;
 
-import it.unicam.cs.mpmgc.formula1.api.simulation.Simulation;
 import it.unicam.cs.mpmgc.formula1.api.simulation.SimulationInfo;
 import it.unicam.cs.mpmgc.formula1.api.strategy.Strategy;
-import it.unicam.cs.mpmgc.formula1.api.track.Track;
 import it.unicam.cs.mpmgc.formula1.api.vector.Vector2;
-
-import java.util.List;
 
 /**
  *
@@ -45,6 +41,27 @@ public class CarEntity extends GameEntity{
 
     @Override
     public void nextMove(SimulationInfo sim) {
-        strategy.decideNextMove(this, sim);
+        Vector2 decidedMove = strategy.decideNextMove(getPossibleMoves(),this,
+                sim );
+
+        setPosition(getPosition().sum(decidedMove));
+        setAcceleration(decidedMove);
+    }
+
+    private Vector2[] getPossibleMoves(){
+        // TODO: I can surely make this better but for now it works.
+
+        Vector2 acceleration = getAcceleration();
+        return new Vector2[]{
+            new Vector2(-1,-1).sum(acceleration),
+            new Vector2(0,-1).sum(acceleration),
+            new Vector2(1,-1).sum(acceleration),
+            new Vector2(-1,0).sum(acceleration),
+            new Vector2(0,0).sum(acceleration),
+            new Vector2(1,0).sum(acceleration),
+            new Vector2(-1,1).sum(acceleration),
+            new Vector2(0,1).sum(acceleration),
+            new Vector2(1,1).sum(acceleration),
+        };
     }
 }

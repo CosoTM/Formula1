@@ -42,11 +42,15 @@ public class GameSimulationTest {
         assertNotNull(sim);
     }
     @Test
-    void GameSimulationEndTest(){
+    void GameSimulationStepTest(){
         File f = FileLoader.load("raceConfigTest1.txt");
         FileGameConfigurator conf = new FileGameConfigurator(f);
         GameSimulation sim = (GameSimulation) conf.configure();
-
+        try {
+            sim.step();
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
 
     }
 
