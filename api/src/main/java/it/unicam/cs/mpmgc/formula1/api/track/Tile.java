@@ -32,7 +32,7 @@ public enum Tile {
     START('^'),
     FINISH('-'),
     TRACK('.'),
-    AIR('=');
+    AIR(' ');
 
     private final char tile;
 

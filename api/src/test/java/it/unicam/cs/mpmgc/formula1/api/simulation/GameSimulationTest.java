@@ -22,35 +22,32 @@
  * SOFTWARE.
  */
 
-package it.unicam.cs.mpmgc.formula1.api.handler;
+package it.unicam.cs.mpmgc.formula1.api.simulation;
 
-import it.unicam.cs.mpmgc.formula1.api.entity.Entity;
+import it.unicam.cs.mpmgc.formula1.api.configurator.FileGameConfigurator;
 import it.unicam.cs.mpmgc.formula1.api.file.FileLoader;
-import it.unicam.cs.mpmgc.formula1.api.track.TileTrack;
 import org.junit.jupiter.api.Test;
 
 import java.io.File;
-import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
-public class EntityHandlerTest {
-    @Test
-    void CheckForTileTrackExistence(){
-        File f = FileLoader.load("raceConfigTest1.txt");
-        EntityHandler e = new EntityHandler(f);
-        List<Entity> entities = e.handle();
-
-        assertNotNull(entities);
-        assertNotEquals(0, entities.size());
-    }
+public class GameSimulationTest {
 
     @Test
-    void CheckNumberOfEntitiesTest(){
+    void GameSimulationCreationTest(){
         File f = FileLoader.load("raceConfigTest1.txt");
-        EntityHandler e = new EntityHandler(f);
-        List<Entity> entities = e.handle();
-
-        assertEquals(5, entities.size());
+        FileGameConfigurator conf = new FileGameConfigurator(f);
+        GameSimulation sim = (GameSimulation) conf.configure();
+        assertNotNull(sim);
     }
+    @Test
+    void GameSimulationEndTest(){
+        File f = FileLoader.load("raceConfigTest1.txt");
+        FileGameConfigurator conf = new FileGameConfigurator(f);
+        GameSimulation sim = (GameSimulation) conf.configure();
+
+
+    }
+
 }

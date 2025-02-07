@@ -24,7 +24,6 @@
 
 package it.unicam.cs.mpmgc.formula1.api.track;
 
-import it.unicam.cs.mpmgc.formula1.api.entity.CarEntity;
 import it.unicam.cs.mpmgc.formula1.api.entity.Entity;
 import it.unicam.cs.mpmgc.formula1.api.vector.Vector2;
 
@@ -67,9 +66,26 @@ public interface Track {
     boolean isEntityInsideTrack(Entity entity);
 
     /**
-     * Checks if a Car is on the finish line.
-     * @param car the Car that we want to check.
+     * Checks if an Entity is on the finish line.
+     * @param entity the Entity that we want to check.
      * @return true if on the finish line, false otherwise.
      */
-    boolean isCarOnFinishLine(CarEntity car);
+    boolean isEntityOnFinishLine(Entity entity);
+
+    /**
+     * Put the list of entities passed as a parameter on the starting line. If
+     * there's no space left on the starting line, some entities could be left out
+     * of the game.
+     * @param entities the list of cars.
+     */
+    void putEntitiesOnStart(List<? extends Entity> entities);
+
+    /**
+     * Given the start and end position of the movement of an Entity, this method
+     * return true if the entity has crashed in any way, or false otherwise.
+     * @param start start position of the entity before a movement.
+     * @param end end position of the entity after a movement.
+     * @return true if the entity has crashed in any way, or false otherwise.
+     */
+    boolean hasEntityCrashed(Vector2 start, Vector2 end);
 }

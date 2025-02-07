@@ -25,8 +25,12 @@
 package it.unicam.cs.mpmgc.formula1.api.entity;
 
 import it.unicam.cs.mpmgc.formula1.api.simulation.Simulation;
+import it.unicam.cs.mpmgc.formula1.api.simulation.SimulationInfo;
 import it.unicam.cs.mpmgc.formula1.api.strategy.Strategy;
+import it.unicam.cs.mpmgc.formula1.api.track.Track;
 import it.unicam.cs.mpmgc.formula1.api.vector.Vector2;
+
+import java.util.List;
 
 /**
  *
@@ -40,7 +44,7 @@ public class CarEntity extends GameEntity{
     }
 
     @Override
-    public void nextMove(Simulation sim) {
+    public void nextMove(SimulationInfo sim) {
         strategy.decideNextMove(this, sim);
     }
 }

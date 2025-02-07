@@ -26,7 +26,11 @@ package it.unicam.cs.mpmgc.formula1.api.entity;
 
 
 import it.unicam.cs.mpmgc.formula1.api.simulation.Simulation;
+import it.unicam.cs.mpmgc.formula1.api.simulation.SimulationInfo;
+import it.unicam.cs.mpmgc.formula1.api.track.Track;
 import it.unicam.cs.mpmgc.formula1.api.vector.Vector2;
+
+import java.util.List;
 
 /**
  * Represents an Entity in the game, that moves and behaves in a specific way.
@@ -70,9 +74,10 @@ public interface Entity {
     /**
      * Decides what the Entity should do given the current state of the
      * Simulation.
-     * @param sim The simulation.
+     *
+     * @param sim  The simulation.
      */
-    void nextMove(Simulation sim);
+    void nextMove(SimulationInfo sim);
 
     /**
      * Return true if the Entity is alive, false otherwise.

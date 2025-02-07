@@ -26,6 +26,7 @@ package it.unicam.cs.mpmgc.formula1.api.strategy.concrete;
 
 import it.unicam.cs.mpmgc.formula1.api.entity.Entity;
 import it.unicam.cs.mpmgc.formula1.api.simulation.Simulation;
+import it.unicam.cs.mpmgc.formula1.api.simulation.SimulationInfo;
 import it.unicam.cs.mpmgc.formula1.api.strategy.Strategy;
 
 /**
@@ -33,5 +34,5 @@ import it.unicam.cs.mpmgc.formula1.api.strategy.Strategy;
  */
 public class StoppedStrategy implements Strategy {
     @Override
-    public void decideNextMove(Entity entity, Simulation sim) {}
+    public void decideNextMove(Entity entity, SimulationInfo sim) {}
 }

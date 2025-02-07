@@ -24,18 +24,14 @@
 
 package it.unicam.cs.mpmgc.formula1.api.simulation;
 
-/**
- * Represents a Game Simulation. It can be chosen to make the simulation go
- * automatically or manually.
- */
-public interface Simulation {
-    /**
-     * Makes a step forward in the Simulation.
-     */
-    void step();
+import it.unicam.cs.mpmgc.formula1.api.entity.CarEntity;
+import it.unicam.cs.mpmgc.formula1.api.track.Track;
 
-    /**
-     * Toggles on or off to Manual or Automatic Simulation.
-     */
-    void toggleManual();
-}
+import java.util.List;
+
+/**
+ * Contains all information about a simulation.
+ * @param track The track the simulation has.
+ * @param cars All the cars the simulation has.
+ */
+public record SimulationInfo(Track track, List<CarEntity> cars) { }

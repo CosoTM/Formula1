@@ -22,20 +22,34 @@
  * SOFTWARE.
  */
 
-package it.unicam.cs.mpmgc.formula1.api.simulation;
+package it.unicam.cs.mpmgc.formula1.api.handler;
 
-/**
- * Represents a Game Simulation. It can be chosen to make the simulation go
- * automatically or manually.
- */
-public interface Simulation {
-    /**
-     * Makes a step forward in the Simulation.
-     */
-    void step();
+import it.unicam.cs.mpmgc.formula1.api.entity.CarEntity;
+import it.unicam.cs.mpmgc.formula1.api.file.FileLoader;
+import org.junit.jupiter.api.Test;
 
-    /**
-     * Toggles on or off to Manual or Automatic Simulation.
-     */
-    void toggleManual();
+import java.io.File;
+import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.*;
+
+public class CarEntityHandlerTest {
+    @Test
+    void CheckForTileTrackExistence(){
+        File f = FileLoader.load("raceConfigTest1.txt");
+        CarEntityHandler e = new CarEntityHandler(f);
+        List<CarEntity> entities = e.handle();
+
+        assertNotNull(entities);
+        assertNotEquals(0, entities.size());
+    }
+
+    @Test
+    void CheckNumberOfEntitiesTest(){
+        File f = FileLoader.load("raceConfigTest1.txt");
+        CarEntityHandler e = new CarEntityHandler(f);
+        List<CarEntity> entities = e.handle();
+
+        assertEquals(5, entities.size());
+    }
 }

@@ -38,15 +38,15 @@ import java.util.*;
  * Handles and loads everything that has to do with the {@link Entity Entities}
  * of the game simulation.
  */
-public class EntityHandler implements Handler<List<Entity>>{
+public class CarEntityHandler implements Handler<List<CarEntity>>{
     private final File file;
 
-    public EntityHandler(File file) {
+    public CarEntityHandler(File file) {
         this.file = file;
     }
 
     @Override
-    public List<Entity> handle() {
+    public List<CarEntity> handle() {
         try {
             Scanner scanner = new Scanner(file);
             String currentLine = "";
@@ -55,7 +55,7 @@ public class EntityHandler implements Handler<List<Entity>>{
                 currentLine = scanner.nextLine();
 
 
-            List<Entity> entities = new ArrayList<>();
+            List<CarEntity> entities = new ArrayList<>();
             while(scanner.hasNextLine()){
                 String[] l = scanner.nextLine().split("\\s+");
                 entities.add(createCarEntity(

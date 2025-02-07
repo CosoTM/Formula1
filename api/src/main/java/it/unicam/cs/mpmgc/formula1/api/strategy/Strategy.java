@@ -26,6 +26,7 @@ package it.unicam.cs.mpmgc.formula1.api.strategy;
 
 import it.unicam.cs.mpmgc.formula1.api.entity.Entity;
 import it.unicam.cs.mpmgc.formula1.api.simulation.Simulation;
+import it.unicam.cs.mpmgc.formula1.api.simulation.SimulationInfo;
 
 /**
  * A Strategy represents how an
@@ -34,5 +35,5 @@ import it.unicam.cs.mpmgc.formula1.api.simulation.Simulation;
  * depending on any type of data related to the Simulation.
  */
 public interface Strategy {
-    void decideNextMove(Entity entity, Simulation sim);
+    void decideNextMove(Entity entity, SimulationInfo sim);
 }

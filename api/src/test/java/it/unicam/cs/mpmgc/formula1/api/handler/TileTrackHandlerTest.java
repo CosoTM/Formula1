@@ -54,7 +54,7 @@ public class TileTrackHandlerTest {
         TileTrack tiles = e.handle();
 
         int i=0;
-        for (List<Tile> rows: tiles.track) {
+        for (List<Tile> rows: tiles.getWholeTrack()) {
             assertEquals(20, rows.size());
             i++;
         }

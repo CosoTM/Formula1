@@ -35,29 +35,11 @@ import java.util.List;
  *
  */
 public class TileTrack implements Track{
-    public final List<List<Tile>> track;
+    private final List<List<Tile>> track;
 
     public TileTrack(List<List<Tile>> track) {
         // TODO: check if track is valid or throw exceptions.
         this.track = track;
-    }
-
-    public Tile getTileAtPosition(Vector2 pos){
-        if(pos == null) throw new NullPointerException("Position is null");
-        if(!isPositionValid(pos)) throw new IllegalArgumentException("Position " +
-                "isnt valid.");
-        return track.get(pos.y()).get(pos.x());
-    }
-
-    public List<Vector2> getPositionsOfTileType(Tile tileType){
-        List<Vector2> positions = new ArrayList<>();
-        for (int y = 0; y < track.size(); y++) {
-            for (int x = 0; x < track.get(y).size(); x++) {
-                Tile currentTile = track.get(y).get(x);
-                if(currentTile == tileType) positions.add(new Vector2(x,y));
-            }
-        }
-        return positions;
     }
 
     @Override
@@ -84,14 +66,55 @@ public class TileTrack implements Track{
 
     @Override
     public boolean isEntityInsideTrack(Entity entity) {
+        if(entity == null) throw new NullPointerException("Entity is null");
         Vector2 entityPos = entity.getPosition();
         return isPositionInsideTrack(entityPos);
     }
 
     @Override
-    public boolean isCarOnFinishLine(CarEntity car) {
+    public boolean isEntityOnFinishLine(Entity entity) {
         // TODO: finish
         return false;
+    }
+
+    @Override
+    public void putEntitiesOnStart(List<? extends Entity> entities) {
+        // TODO: check for invalid input.
+
+        List<Vector2> positionOfStart = getPositionsOfTileType(Tile.START);
+        // TODO: dont really like this. find a better way.
+        if(entities.size() > positionOfStart.size()) System.out.println("There are " +
+                "more entities than positions available for the start. Some " +
+                "entities will not be placed.");
+        for (int i = 0; i < Math.min(positionOfStart.size(), entities.size()); i++) {
+            entities.get(i).setPosition(positionOfStart.get(i));
+        }
+    }
+
+    @Override
+    public boolean hasEntityCrashed(Vector2 start, Vector2 end) {
+        // TODO: check for invalid input.
+        if(!isPositionInsideTrack(end)) return true;
+        if(getTilesOnLine(start, end).contains(Tile.WALL)) return true;
+        return false;
+    }
+
+    public Tile getTileAtPosition(Vector2 pos){
+        if(pos == null) throw new NullPointerException("Position is null");
+        if(!isPositionValid(pos)) throw new IllegalArgumentException("Position " +
+                "isnt valid.");
+        return track.get(pos.y()).get(pos.x());
+    }
+
+    public List<Vector2> getPositionsOfTileType(Tile tileType){
+        List<Vector2> positions = new ArrayList<>();
+        for (int y = 0; y < track.size(); y++) {
+            for (int x = 0; x < track.get(y).size(); x++) {
+                Tile currentTile = track.get(y).get(x);
+                if(currentTile == tileType) positions.add(new Vector2(x,y));
+            }
+        }
+        return positions;
     }
 
     private List<Tile> getTilesOnLine(Vector2 p1, Vector2 p2) {

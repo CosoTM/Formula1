@@ -24,22 +24,67 @@
 
 package it.unicam.cs.mpmgc.formula1.api.simulation;
 
+import it.unicam.cs.mpmgc.formula1.api.entity.CarEntity;
 import it.unicam.cs.mpmgc.formula1.api.entity.Entity;
 import it.unicam.cs.mpmgc.formula1.api.track.Track;
+import it.unicam.cs.mpmgc.formula1.api.vector.Vector2;
 
 import java.util.List;
 
 public class GameSimulation implements Simulation{
     private final Track track;
-    private final List<Entity> entities;
+    private final List<CarEntity> cars;
+    private boolean automatic;
+    private final int stepTime = 5000;
+    private boolean isOngoing;
 
-    public GameSimulation(Track track, List<Entity> entities) {
+    public GameSimulation(Track track, List<CarEntity> cars) {
         this.track = track;
-        this.entities = entities;
+        this.cars = cars;
+        automatic = false;
+        isOngoing = true;
+
+        track.putEntitiesOnStart(cars);
     }
 
     @Override
     public void step() {
+        // TODO: check for user input in UI Component or check if user pressed button for automatic simulation
 
+        while(isOngoing){
+            // TODO: Something with UI
+            for (Entity car: getAliveEntities(cars)) {
+                // TODO: this could be placed in a method.
+                if(!car.isAlive()) continue;
+                Vector2 before = car.getPosition();
+                car.nextMove(new SimulationInfo(track, cars));
+                if(track.hasEntityCrashed(before, car.getPosition())) handleCarCrash(car);
+                if(track.isEntityOnFinishLine(car)) handlerCarWin(car);
+            }
+        }
+    }
+
+    private List<? extends Entity> getAliveEntities(List<? extends Entity> entities){
+        return entities.stream().filter(Entity::isAlive).toList();
+    }
+
+    private void handleCarCrash(Entity car) {
+        // TODO: Something with UI
+        car.kill();
+        System.out.println(car.getName() +"crashed.");
+    }
+
+    private void handlerCarWin(Entity car) {
+        // TODO: Winning logic
+        // TODO: something with UI
+
+        isOngoing = false;
+        System.out.println(car.getName() +"won.");
+    }
+
+
+    @Override
+    public void toggleManual() {
+        automatic = !automatic;
     }
 }
