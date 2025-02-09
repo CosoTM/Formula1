@@ -24,26 +24,50 @@
 
 package it.unicam.cs.mpmgc.formula1.api.ui;
 
+import it.unicam.cs.mpmgc.formula1.api.entity.CarEntity;
 import it.unicam.cs.mpmgc.formula1.api.simulation.SimulationInfo;
 import it.unicam.cs.mpmgc.formula1.api.track.Tile;
+import it.unicam.cs.mpmgc.formula1.api.track.Track;
+import it.unicam.cs.mpmgc.formula1.api.vector.Vector2;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
+import java.util.stream.Collectors;
 
 public class ConsoleUserInterface implements UserInterface{
     @Override
     public void updateUI(SimulationInfo sim) {
-        // TODO: dont know yet what to do here
-        for (List<Tile> row : sim.track().getWholeTrack()) {
-            for (Tile tile : row) {
-                System.out.print(tile.tile());
+       List<List<Character>> toPrint = sim.track().getWholeTrack()
+               .stream()
+               .map(r -> r.stream()
+                          .map(Tile::tile)
+                          .collect(Collectors.toList()))
+               .collect(Collectors.toList());
+
+        for (CarEntity car : sim.cars()) {
+            Vector2 pos = car.getPosition();
+            toPrint.get(pos.y()).set(pos.x(), car.getName());
+        }
+
+        printEverything(toPrint);
+    }
+
+    private void printEverything(List<List<Character>> toPrint) {
+        for (List<Character> row : toPrint) {
+            for (Character tile : row) {
+                System.out.print(tile);
             }
             System.out.println();
         }
     }
 
+
     @Override
     public void checkForNextStep() {
-
+        Scanner s = new Scanner(System.in);
+        System.out.println("Press Enter to advance Simulation.");
+        s.nextLine();
     }
 
     @Override

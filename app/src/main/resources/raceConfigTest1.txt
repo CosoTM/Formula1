@@ -14,6 +14,6 @@
 $
 simple-bot A
 random-bot B
-simple-bot C
-player D
-simple-bot E
+random-bot C
+random-bot D
+random-bot E

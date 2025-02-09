@@ -54,16 +54,20 @@ public class GameSimulation implements Simulation{
     public void step() throws InterruptedException {
         // TODO: check for user input in UI Component or check if user pressed button for automatic simulation
 
+        UI.updateUI(new SimulationInfo(track, cars));
         while(isOngoing){
             // TODO: Something with UI
-            Thread.sleep(stepTime);
-            UI.updateUI(new SimulationInfo(track, cars));
+            //Thread.sleep(stepTime);
+
             handleCars();
         }
     }
 
     private void handleCars() {
         for (Entity car: getAliveEntities(cars)) {
+            UI.checkForNextStep();
+            UI.updateUI(new SimulationInfo(track, cars));
+
             Vector2 before = car.getPosition();
             car.nextMove(new SimulationInfo(track, cars));
 

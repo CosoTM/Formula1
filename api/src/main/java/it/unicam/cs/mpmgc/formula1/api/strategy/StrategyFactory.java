@@ -24,6 +24,7 @@
 
 package it.unicam.cs.mpmgc.formula1.api.strategy;
 
+import it.unicam.cs.mpmgc.formula1.api.strategy.concrete.RandomStrategy;
 import it.unicam.cs.mpmgc.formula1.api.strategy.concrete.SimpleStrategy;
 import it.unicam.cs.mpmgc.formula1.api.strategy.concrete.StoppedStrategy;
 
@@ -42,7 +43,7 @@ public final class StrategyFactory {
     public static Strategy buildStrategy(StrategyString strat){
         return switch (strat){
             case STOPPED_STRATEGY-> new StoppedStrategy();
-            case RANDOM_STRATEGY -> null;
+            case RANDOM_STRATEGY -> new RandomStrategy();
             case SIMPLE_STRATEGY -> new SimpleStrategy();
             case PLAYER_STRATEGY -> null;
             case null -> new StoppedStrategy();

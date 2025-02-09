@@ -25,18 +25,16 @@
 package it.unicam.cs.mpmgc.formula1.api.strategy.concrete;
 
 import it.unicam.cs.mpmgc.formula1.api.entity.Entity;
-import it.unicam.cs.mpmgc.formula1.api.strategy.Strategy;
 import it.unicam.cs.mpmgc.formula1.api.simulation.SimulationInfo;
-import it.unicam.cs.mpmgc.formula1.api.track.Track;
+import it.unicam.cs.mpmgc.formula1.api.strategy.Strategy;
 import it.unicam.cs.mpmgc.formula1.api.vector.Vector2;
 
-import java.util.Stack;
-
-public class SimpleStrategy implements Strategy {
+/**
+ * Just makes random decisions until it dies or wins.
+ */
+public class RandomStrategy implements Strategy {
     @Override
     public Vector2 decideNextMove(Vector2[] possiblePositions, Entity thisEntity, SimulationInfo sim) {
-
-        return possiblePositions[7];
+        return decideRandomMove(possiblePositions);
     }
-
 }

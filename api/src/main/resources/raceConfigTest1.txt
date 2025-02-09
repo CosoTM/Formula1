@@ -12,8 +12,8 @@
 #..................#
 ####################
 $
-simple-bot A
-stopped-bot B
-simple-bot C
-player D
-simple-bot E
+random-bot A
+random-bot B
+random-bot C
+random-bot D
+random-bot E

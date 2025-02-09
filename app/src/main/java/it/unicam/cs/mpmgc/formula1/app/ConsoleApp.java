@@ -24,8 +24,23 @@
 
 package it.unicam.cs.mpmgc.formula1.app;
 
+import it.unicam.cs.mpmgc.formula1.api.configurator.FileGameConfigurator;
+import it.unicam.cs.mpmgc.formula1.api.file.FileLoader;
+import it.unicam.cs.mpmgc.formula1.api.simulation.GameSimulation;
+
+import java.io.File;
+
 public class ConsoleApp {
     public static void main(String[] args) {
-        System.out.println("funziona");
+
+        File f = FileLoader.load("raceConfigTest1.txt");
+        FileGameConfigurator conf = new FileGameConfigurator(f);
+        GameSimulation sim = (GameSimulation) conf.configure();
+        try {
+            sim.step();
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+
     }
 }
