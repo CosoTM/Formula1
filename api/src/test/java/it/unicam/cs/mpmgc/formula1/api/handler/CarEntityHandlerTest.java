@@ -25,6 +25,7 @@
 package it.unicam.cs.mpmgc.formula1.api.handler;
 
 import it.unicam.cs.mpmgc.formula1.api.entity.CarEntity;
+import it.unicam.cs.mpmgc.formula1.api.entity.Entity;
 import it.unicam.cs.mpmgc.formula1.api.file.FileLoader;
 import org.junit.jupiter.api.Test;
 
@@ -38,7 +39,7 @@ public class CarEntityHandlerTest {
     void CheckForTileTrackExistence(){
         File f = FileLoader.load("raceConfigTest1.txt");
         CarEntityHandler e = new CarEntityHandler(f);
-        List<CarEntity> entities = e.handle();
+        List<Entity> entities = e.handle();
 
         assertNotNull(entities);
         assertNotEquals(0, entities.size());
@@ -48,7 +49,7 @@ public class CarEntityHandlerTest {
     void CheckNumberOfEntitiesTest(){
         File f = FileLoader.load("raceConfigTest1.txt");
         CarEntityHandler e = new CarEntityHandler(f);
-        List<CarEntity> entities = e.handle();
+        List<Entity> entities = e.handle();
 
         assertEquals(5, entities.size());
     }

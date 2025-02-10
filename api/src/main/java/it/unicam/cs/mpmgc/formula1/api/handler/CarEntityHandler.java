@@ -38,7 +38,7 @@ import java.util.*;
  * Handles and loads everything that has to do with the {@link Entity Entities}
  * of the game simulation.
  */
-public class CarEntityHandler implements Handler<List<CarEntity>>{
+public class CarEntityHandler implements Handler<List<Entity>>{
     private final File file;
 
     public CarEntityHandler(File file) {
@@ -46,7 +46,7 @@ public class CarEntityHandler implements Handler<List<CarEntity>>{
     }
 
     @Override
-    public List<CarEntity> handle() {
+    public List<Entity> handle() {
         try {
             Scanner scanner = new Scanner(file);
             String currentLine = "";
@@ -55,7 +55,7 @@ public class CarEntityHandler implements Handler<List<CarEntity>>{
                 currentLine = scanner.nextLine();
 
 
-            List<CarEntity> entities = new ArrayList<>();
+            List<Entity> entities = new ArrayList<>();
             while(scanner.hasNextLine()){
                 String[] l = scanner.nextLine().split("\\s+");
                 entities.add(createCarEntity(

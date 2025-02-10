@@ -24,14 +24,16 @@
 
 package it.unicam.cs.mpmgc.formula1.api.simulation;
 
-import it.unicam.cs.mpmgc.formula1.api.entity.CarEntity;
+import it.unicam.cs.mpmgc.formula1.api.entity.Entity;
 import it.unicam.cs.mpmgc.formula1.api.track.Track;
+import it.unicam.cs.mpmgc.formula1.api.ui.UserInterface;
 
 import java.util.List;
 
 /**
  * Contains all information about a simulation.
  * @param track The track the simulation has.
- * @param cars All the cars the simulation has.
+ * @param entities All the entities the simulation has.
  */
-public record SimulationInfo(Track track, List<CarEntity> cars) { }
+public record SimulationInfo(Track track, List<Entity> entities,
+                             UserInterface UI) { }

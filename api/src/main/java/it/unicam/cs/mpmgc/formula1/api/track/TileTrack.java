@@ -50,9 +50,9 @@ public class TileTrack implements Track{
     @Override
     public boolean isPositionValid(Vector2 pos) {
         if(pos == null) throw new NullPointerException("Position is null");
-        if(pos.x() < 0 || pos.y() < 0)          return false;
-        if(pos.y() > track.size())              return false;
-        if(pos.x() > track.get(pos.y()).size()) return false;
+        if(pos.x() < 0 || pos.y() < 0)            return false;
+        if(pos.y() > track.size()-1)              return false;
+        if(pos.x() > track.get(pos.y()).size()-1) return false;
         return true;
     }
 

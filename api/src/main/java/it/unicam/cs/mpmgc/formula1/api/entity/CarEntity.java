@@ -28,6 +28,8 @@ import it.unicam.cs.mpmgc.formula1.api.simulation.SimulationInfo;
 import it.unicam.cs.mpmgc.formula1.api.strategy.Strategy;
 import it.unicam.cs.mpmgc.formula1.api.vector.Vector2;
 
+import java.util.Arrays;
+
 /**
  *
  */
@@ -48,20 +50,20 @@ public class CarEntity extends GameEntity{
         setAcceleration(decidedMove);
     }
 
-    private Vector2[] getPossibleMoves(){
+    private Vector2[] getPossibleMoves() {
         // TODO: I can surely make this better but for now it works.
 
         Vector2 acceleration = getAcceleration();
         return new Vector2[]{
-            new Vector2(-1,-1).sum(acceleration),
-            new Vector2(0,-1).sum(acceleration),
-            new Vector2(1,-1).sum(acceleration),
-            new Vector2(-1,0).sum(acceleration),
-            new Vector2(0,0).sum(acceleration),
-            new Vector2(1,0).sum(acceleration),
-            new Vector2(-1,1).sum(acceleration),
-            new Vector2(0,1).sum(acceleration),
-            new Vector2(1,1).sum(acceleration),
+                new Vector2(-1, -1).sum(acceleration),
+                new Vector2(0, -1).sum(acceleration),
+                new Vector2(1, -1).sum(acceleration),
+                new Vector2(-1, 0).sum(acceleration),
+                new Vector2(0, 0).sum(acceleration),
+                new Vector2(1, 0).sum(acceleration),
+                new Vector2(-1, 1).sum(acceleration),
+                new Vector2(0, 1).sum(acceleration),
+                new Vector2(1, 1).sum(acceleration),
         };
     }
 }

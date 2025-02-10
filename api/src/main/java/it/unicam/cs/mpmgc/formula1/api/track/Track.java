@@ -76,7 +76,7 @@ public interface Track {
      * Put the list of entities passed as a parameter on the starting line. If
      * there's no space left on the starting line, some entities could be left out
      * of the game.
-     * @param entities the list of cars.
+     * @param entities the list of entities.
      */
     void putEntitiesOnStart(List<? extends Entity> entities);
 

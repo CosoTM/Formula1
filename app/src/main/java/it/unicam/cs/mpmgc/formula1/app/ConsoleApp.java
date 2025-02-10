@@ -37,7 +37,7 @@ public class ConsoleApp {
         FileGameConfigurator conf = new FileGameConfigurator(f);
         GameSimulation sim = (GameSimulation) conf.configure();
         try {
-            sim.step();
+            sim.start();
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }

@@ -24,7 +24,10 @@
 
 package it.unicam.cs.mpmgc.formula1.api.ui;
 
-import it.unicam.cs.mpmgc.formula1.api.simulation.SimulationInfo;
+import it.unicam.cs.mpmgc.formula1.api.entity.Entity;
+import it.unicam.cs.mpmgc.formula1.api.track.Track;
+
+import java.util.List;
 
 /**
  * Defines all the operations that the User Interface should have for this game.
@@ -32,10 +35,11 @@ import it.unicam.cs.mpmgc.formula1.api.simulation.SimulationInfo;
 public interface UserInterface {
 
     /**
-     * Updates UI given the simulation information.
-     * @param sim the Simulation Info.
+     * Updates UI given the Track and the list of entities.
+     * @param track the Track.
+     * @param entities the Entities.
      */
-   void updateUI(SimulationInfo sim);
+   void updateUI(Track track, List<? extends Entity> entities);
 
     /**
      * Checks for when the User wants to advance to the next step of the
@@ -46,5 +50,12 @@ public interface UserInterface {
     /**
      * Checks for when the User wants the simulation to go automatically
      */
-   void checkForAutomatic();
+   boolean checkForAutomatic();
+
+    /**
+     * The string passed as a parameter will be shown (according to the
+     * implementation) right after the UI updates.
+     * @param string the string to print after the UI Updates.
+     */
+   void showAfterUpdate(String string);
 }

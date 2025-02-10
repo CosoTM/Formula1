@@ -24,54 +24,86 @@
 
 package it.unicam.cs.mpmgc.formula1.api.ui;
 
-import it.unicam.cs.mpmgc.formula1.api.entity.CarEntity;
-import it.unicam.cs.mpmgc.formula1.api.simulation.SimulationInfo;
+import it.unicam.cs.mpmgc.formula1.api.entity.Entity;
 import it.unicam.cs.mpmgc.formula1.api.track.Tile;
 import it.unicam.cs.mpmgc.formula1.api.track.Track;
 import it.unicam.cs.mpmgc.formula1.api.vector.Vector2;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.Scanner;
 import java.util.stream.Collectors;
 
+/**
+ *
+ */
 public class ConsoleUserInterface implements UserInterface{
-    @Override
-    public void updateUI(SimulationInfo sim) {
-       List<List<Character>> toPrint = sim.track().getWholeTrack()
-               .stream()
-               .map(r -> r.stream()
-                          .map(Tile::tile)
-                          .collect(Collectors.toList()))
-               .collect(Collectors.toList());
 
-        for (CarEntity car : sim.cars()) {
-            Vector2 pos = car.getPosition();
-            toPrint.get(pos.y()).set(pos.x(), car.getName());
+    private final String letterForAutomatic;
+    private String lastInput = "";
+    private List<List<Character>> unmodifiedTrack = null;
+
+    private String toPrintAfterUpdate = "";
+
+    public ConsoleUserInterface() {
+        this('A');
+    }
+
+    public ConsoleUserInterface(char letterForAutomatic ) {
+        this.letterForAutomatic = String.valueOf(letterForAutomatic).toUpperCase();
+    }
+
+    @Override
+    public void updateUI(Track track, List<? extends Entity> entities) {
+        trySetUnmodifiedTrack(track);
+        //List<List<Character>> copy = new ArrayList<>(unmodifiedTrack);
+
+        for (Entity entity : entities) {
+            Vector2 pos = entity.getPosition();
+            unmodifiedTrack.get(pos.y()).set(pos.x(), entity.getName());
         }
 
-        printEverything(toPrint);
+        printEverything(unmodifiedTrack);
+        toPrintAfterUpdate = "";
+    }
+
+    @Override
+    public void checkForNextStep() {
+        Scanner s = new Scanner(System.in);
+        System.out.println("Press Enter to advance Simulation. Press '"+letterForAutomatic+"' and " +
+                "Enter to make the Simulation go automatically.");
+        lastInput = s.nextLine().toUpperCase();
+    }
+
+    @Override
+    public boolean checkForAutomatic() {
+        return lastInput.equals(letterForAutomatic);
+    }
+
+    @Override
+    public void showAfterUpdate(String string) {
+        toPrintAfterUpdate += string + "\n";
+    }
+
+    private void trySetUnmodifiedTrack(Track track){
+        //if (unmodifiedTrack == null)
+        unmodifiedTrack = track.getWholeTrack()
+                .stream()
+                .map(r -> r.stream()
+                        .map(Tile::tile)
+                        .collect(Collectors.toList()))
+                .collect(Collectors.toList());
     }
 
     private void printEverything(List<List<Character>> toPrint) {
+        //System.out.println();
         for (List<Character> row : toPrint) {
             for (Character tile : row) {
                 System.out.print(tile);
             }
             System.out.println();
         }
-    }
-
-
-    @Override
-    public void checkForNextStep() {
-        Scanner s = new Scanner(System.in);
-        System.out.println("Press Enter to advance Simulation.");
-        s.nextLine();
-    }
-
-    @Override
-    public void checkForAutomatic() {
-
+        System.out.print(toPrintAfterUpdate);
     }
 }

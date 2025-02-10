@@ -24,7 +24,6 @@
 
 package it.unicam.cs.mpmgc.formula1.api.simulation;
 
-import it.unicam.cs.mpmgc.formula1.api.entity.CarEntity;
 import it.unicam.cs.mpmgc.formula1.api.entity.Entity;
 import it.unicam.cs.mpmgc.formula1.api.track.Track;
 import it.unicam.cs.mpmgc.formula1.api.ui.UserInterface;
@@ -34,69 +33,76 @@ import java.util.List;
 
 public class GameSimulation implements Simulation{
     private final Track track;
-    private final List<CarEntity> cars;
     private final UserInterface UI;
-    private boolean automatic;
-    private final int stepTime = 5000;
+    private final int stepTime;
+    private List<Entity> aliveEntities;
     private boolean isOngoing;
 
-    public GameSimulation(Track track, List<CarEntity> cars, UserInterface UI) {
+    public GameSimulation(Track track, List<Entity> entities, UserInterface UI) {
+        this(track, entities, UI, 1);
+    }
+
+    public GameSimulation(Track track, List<Entity> entities, UserInterface UI,
+                          int secondsPerStep) {
         this.track = track;
-        this.cars = cars;
         this.UI = UI;
-        automatic = false;
+        stepTime = secondsPerStep * 1000;
+
+        aliveEntities = entities;
         isOngoing = true;
 
-        track.putEntitiesOnStart(cars);
+        track.putEntitiesOnStart(entities);
     }
+
 
     @Override
-    public void step() throws InterruptedException {
-        // TODO: check for user input in UI Component or check if user pressed button for automatic simulation
+    public void start() throws InterruptedException {
+        //updateUIandStep();
 
-        UI.updateUI(new SimulationInfo(track, cars));
-        while(isOngoing){
-            // TODO: Something with UI
-            //Thread.sleep(stepTime);
+        while(isOngoing && !aliveEntities.isEmpty()){
+            for (Entity entity: aliveEntities) {
+                updateUIandStep();
+                handleEntity(entity);
+                updateAliveEntities();
 
-            handleCars();
+            }
         }
+        System.out.println("Game Over");
     }
 
-    private void handleCars() {
-        for (Entity car: getAliveEntities(cars)) {
-            UI.checkForNextStep();
-            UI.updateUI(new SimulationInfo(track, cars));
+    private void handleEntity(Entity entity) {
+        Vector2 before = entity.getPosition();
+        entity.nextMove(new SimulationInfo(track, aliveEntities, UI));
 
-            Vector2 before = car.getPosition();
-            car.nextMove(new SimulationInfo(track, cars));
-
-            if(track.hasEntityCrashed(before, car.getPosition())) handleCarCrash(car);
-            if(track.isEntityOnFinishLine(car)) handlerCarWin(car);
-        }
+        if(track.hasEntityCrashed(before, entity.getPosition())) handleEntityCrash(entity);
+        if(track.isEntityOnFinishLine(entity) || aliveEntities.size() == 1) handlerEntityWin(entity);
     }
 
-    private List<? extends Entity> getAliveEntities(List<? extends Entity> entities){
-        return entities.stream().filter(Entity::isAlive).toList();
+    private void updateUIandStep() throws InterruptedException {
+        UI.updateUI(track, aliveEntities);
+
+        if(UI.checkForAutomatic()) Thread.sleep(stepTime);
+        else UI.checkForNextStep();
     }
 
-    private void handleCarCrash(Entity car) {
+    private void updateAliveEntities(){
+        aliveEntities = aliveEntities.stream().filter(Entity::isAlive).toList();
+    }
+
+    private void handleEntityCrash(Entity car) {
         // TODO: Something with UI
         car.kill();
-        System.out.println(car.getName() +"crashed.");
+        UI.showAfterUpdate(car.getName() +" crashed.");
     }
 
-    private void handlerCarWin(Entity car) {
+    private void handlerEntityWin(Entity car) {
         // TODO: Winning logic
         // TODO: something with UI
 
         isOngoing = false;
-        System.out.println(car.getName() +"won.");
+        System.out.println(car.getName() +" won.");
     }
 
 
-    @Override
-    public void toggleManual() {
-        automatic = !automatic;
-    }
+
 }

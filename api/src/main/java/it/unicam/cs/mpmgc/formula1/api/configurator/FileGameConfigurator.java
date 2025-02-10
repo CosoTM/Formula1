@@ -25,6 +25,7 @@
 package it.unicam.cs.mpmgc.formula1.api.configurator;
 
 import it.unicam.cs.mpmgc.formula1.api.entity.CarEntity;
+import it.unicam.cs.mpmgc.formula1.api.entity.Entity;
 import it.unicam.cs.mpmgc.formula1.api.handler.CarEntityHandler;
 import it.unicam.cs.mpmgc.formula1.api.handler.TileTrackHandler;
 import it.unicam.cs.mpmgc.formula1.api.simulation.GameSimulation;
@@ -53,7 +54,7 @@ public class FileGameConfigurator implements Configurator{
         Track track = trackHandler.handle();
 
         CarEntityHandler entityHandler = new CarEntityHandler(gameFile);
-        List<CarEntity> entities = entityHandler.handle();
+        List<Entity> entities = entityHandler.handle();
 
         ConsoleUserInterface UI = new ConsoleUserInterface();
 
