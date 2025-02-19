@@ -40,6 +40,12 @@ public interface Track {
     List<List<Tile>> getWholeTrack();
 
     /**
+     * Returns a List of every position of every wall in the track.
+     * @return a List of every position of every wall in the track.
+     */
+    List<Vector2> getPositionAllWalls();
+
+    /**
      * Checks if the position is valid inside the Track. "Valid" means being in
      * the limits of the Track.
      * @param pos Position to check.
@@ -48,22 +54,13 @@ public interface Track {
     boolean isPositionValid(Vector2 pos);
 
     /**
-     * Checks if a position is inside the Track. "Inside" means being inside the
-     * walls of the track. If the position is on a wall for example, it's NOT
-     * inside the Track.
+     * Checks if a position is inside the Road of the Track. "Inside" means being
+     * inside the walls of the track. If the position is on a wall for example,
+     * it's NOT inside the Road.
      * @param pos Position to Check
      * @return true if its inside, false otherwise.
      */
-    boolean isPositionInsideTrack(Vector2 pos);
-
-    /**
-     * Checks if an entity is inside the Track. "Inside" means being inside the
-     * walls of the track. If the entity is on a wall for example, it's NOT
-     * inside the Track.
-     * @param entity Entity to Check
-     * @return true if its inside, false otherwise.
-     */
-    boolean isEntityInsideTrack(Entity entity);
+    boolean isPositionInsideRoad(Vector2 pos);
 
     /**
      * Checks if an Entity is on the finish line.
@@ -82,7 +79,7 @@ public interface Track {
 
     /**
      * Given the start and end position of the movement of an Entity, this method
-     * return true if the entity has crashed in any way, or false otherwise.
+     * returns true if the entity has crashed in any way, or false otherwise.
      * @param start start position of the entity before a movement.
      * @param end end position of the entity after a movement.
      * @return true if the entity has crashed in any way, or false otherwise.

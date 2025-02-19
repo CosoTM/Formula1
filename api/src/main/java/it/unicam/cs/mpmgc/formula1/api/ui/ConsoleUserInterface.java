@@ -46,16 +46,21 @@ public class ConsoleUserInterface implements UserInterface{
 
     private String toPrintAfterUpdate = "";
 
+
     public ConsoleUserInterface() {
         this('A');
     }
 
     public ConsoleUserInterface(char letterForAutomatic ) {
+        // TODO: check for invalid input
+
         this.letterForAutomatic = String.valueOf(letterForAutomatic).toUpperCase();
     }
 
     @Override
     public void updateUI(Track track, List<? extends Entity> entities) {
+        // TODO: check for invalid input
+
         trySetUnmodifiedTrack(track);
         //List<List<Character>> copy = new ArrayList<>(unmodifiedTrack);
 
@@ -65,7 +70,6 @@ public class ConsoleUserInterface implements UserInterface{
         }
 
         printEverything(unmodifiedTrack);
-        toPrintAfterUpdate = "";
     }
 
     @Override
@@ -105,5 +109,6 @@ public class ConsoleUserInterface implements UserInterface{
             System.out.println();
         }
         System.out.print(toPrintAfterUpdate);
+        toPrintAfterUpdate = "";
     }
 }

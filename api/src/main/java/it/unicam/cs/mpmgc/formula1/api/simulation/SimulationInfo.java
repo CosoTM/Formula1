@@ -35,5 +35,4 @@ import java.util.List;
  * @param track The track the simulation has.
  * @param entities All the entities the simulation has.
  */
-public record SimulationInfo(Track track, List<Entity> entities,
-                             UserInterface UI) { }
+public record SimulationInfo(Track track, List<Entity> entities, UserInterface UI) { }

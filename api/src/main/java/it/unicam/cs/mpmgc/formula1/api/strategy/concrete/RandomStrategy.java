@@ -30,11 +30,12 @@ import it.unicam.cs.mpmgc.formula1.api.strategy.Strategy;
 import it.unicam.cs.mpmgc.formula1.api.vector.Vector2;
 
 /**
- * Just makes random decisions until it dies or wins.
+ * Makes random decisions until it dies or wins.
+ * Just for testing purposes.
  */
 public class RandomStrategy implements Strategy {
     @Override
     public Vector2 decideNextMove(Vector2[] possiblePositions, Entity thisEntity, SimulationInfo sim) {
-        return decideRandomMove(possiblePositions);
+        return possiblePositions[(int) (Math.random() * possiblePositions.length)];
     }
 }

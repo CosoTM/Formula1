@@ -31,7 +31,7 @@ import it.unicam.cs.mpmgc.formula1.api.vector.Vector2;
 import java.util.Arrays;
 
 /**
- *
+ * A CarEntity is a GameEntity that moves according to a Strategy.
  */
 public class CarEntity extends GameEntity{
     private final Strategy strategy;
@@ -43,6 +43,8 @@ public class CarEntity extends GameEntity{
 
     @Override
     public void nextMove(SimulationInfo sim) {
+        // TODO: check for invalid input
+
         Vector2 decidedMove = strategy.decideNextMove(getPossibleMoves(),this,
                 sim );
 

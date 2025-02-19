@@ -47,7 +47,6 @@ public interface FileLoader {
                 e.printStackTrace();
             }
         }
-
         // TODO: rivist
         return null;
     }

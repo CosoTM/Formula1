@@ -34,40 +34,36 @@ import java.util.List;
 public class GameSimulation implements Simulation{
     private final Track track;
     private final UserInterface UI;
+    private final List<Entity> aliveEntities;
     private final int stepTime;
-    private List<Entity> aliveEntities;
     private boolean isOngoing;
 
     public GameSimulation(Track track, List<Entity> entities, UserInterface UI) {
+        // TODO: check for invalid input
         this(track, entities, UI, 1);
     }
 
     public GameSimulation(Track track, List<Entity> entities, UserInterface UI,
                           int secondsPerStep) {
+        // TODO: check for invalid input
         this.track = track;
         this.UI = UI;
+        aliveEntities = entities;
         stepTime = secondsPerStep * 1000;
 
-        aliveEntities = entities;
         isOngoing = true;
 
         track.putEntitiesOnStart(entities);
     }
 
-
     @Override
     public void start() throws InterruptedException {
-        //updateUIandStep();
-
         while(isOngoing && !aliveEntities.isEmpty()){
             for (Entity entity: aliveEntities) {
                 updateUIandStep();
                 handleEntity(entity);
-                updateAliveEntities();
-
             }
         }
-        System.out.println("Game Over");
     }
 
     private void handleEntity(Entity entity) {
@@ -83,15 +79,13 @@ public class GameSimulation implements Simulation{
 
         if(UI.checkForAutomatic()) Thread.sleep(stepTime);
         else UI.checkForNextStep();
-    }
 
-    private void updateAliveEntities(){
-        aliveEntities = aliveEntities.stream().filter(Entity::isAlive).toList();
     }
 
     private void handleEntityCrash(Entity car) {
-        // TODO: Something with UI
         car.kill();
+        aliveEntities.remove(car);
+
         UI.showAfterUpdate(car.getName() +" crashed.");
     }
 
@@ -100,7 +94,7 @@ public class GameSimulation implements Simulation{
         // TODO: something with UI
 
         isOngoing = false;
-        System.out.println(car.getName() +" won.");
+        UI.showAfterUpdate(car.getName() +" won.");
     }
 
 

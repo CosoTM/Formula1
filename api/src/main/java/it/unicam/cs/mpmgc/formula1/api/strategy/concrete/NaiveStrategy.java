@@ -22,28 +22,22 @@
  * SOFTWARE.
  */
 
-package it.unicam.cs.mpmgc.formula1.api.strategy;
+package it.unicam.cs.mpmgc.formula1.api.strategy.concrete;
 
 import it.unicam.cs.mpmgc.formula1.api.entity.Entity;
 import it.unicam.cs.mpmgc.formula1.api.simulation.SimulationInfo;
+import it.unicam.cs.mpmgc.formula1.api.strategy.Strategy;
 import it.unicam.cs.mpmgc.formula1.api.vector.Vector2;
 
 /**
- * A Strategy represents how an
- * {@link it.unicam.cs.mpmgc.formula1.api.entity.Entity Entity} decides to move
- * inside a {@link  it.unicam.cs.mpmgc.formula1.api.track.Track Track},
- * depending on any type of data related to the Simulation.
+ * A bot following this strategy will try to find a wall, and follow it until
+ * it finds the finish line. It controls its velocity to always stay at 1 unit
+ * of acceleration. Even though this is not the best strategy, it will never
+ * crash into a wall.
  */
-public interface Strategy {
-    /**
-     * Given the possible moves, the entity that applies the strategy and the
-     * rest of the simulation, this method will return one of the possible
-     * moves, decided accordingly to the strategy.
-     * @param possiblePositions The possible positions the Entity can move to.
-     * @param thisEntity The entity following the strategy.
-     * @param sim The simulation.
-     * @return One of the possible positions.
-     */
-    Vector2 decideNextMove(Vector2[] possiblePositions, Entity thisEntity,
-                           SimulationInfo sim);
+public class NaiveStrategy implements Strategy {
+    @Override
+    public Vector2 decideNextMove(Vector2[] possiblePositions, Entity thisEntity, SimulationInfo sim) {
+        return null;
+    }
 }

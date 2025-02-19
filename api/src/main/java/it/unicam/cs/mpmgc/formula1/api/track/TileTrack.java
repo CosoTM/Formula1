@@ -24,7 +24,6 @@
 
 package it.unicam.cs.mpmgc.formula1.api.track;
 
-import it.unicam.cs.mpmgc.formula1.api.entity.CarEntity;
 import it.unicam.cs.mpmgc.formula1.api.entity.Entity;
 import it.unicam.cs.mpmgc.formula1.api.vector.Vector2;
 
@@ -48,6 +47,11 @@ public class TileTrack implements Track{
     }
 
     @Override
+    public List<Vector2> getPositionAllWalls() {
+        return getPositionsOfTileType(Tile.WALL);
+    }
+
+    @Override
     public boolean isPositionValid(Vector2 pos) {
         if(pos == null) throw new NullPointerException("Position is null");
         if(pos.x() < 0 || pos.y() < 0)            return false;
@@ -57,18 +61,11 @@ public class TileTrack implements Track{
     }
 
     @Override
-    public boolean isPositionInsideTrack(Vector2 pos) {
+    public boolean isPositionInsideRoad(Vector2 pos) {
         if(pos == null) throw new NullPointerException("Position is null");
         if(!isPositionValid(pos))               return false;
         if(getTileAtPosition(pos) == Tile.WALL || getTileAtPosition(pos) == Tile.AIR) return false;
         return true;
-    }
-
-    @Override
-    public boolean isEntityInsideTrack(Entity entity) {
-        if(entity == null) throw new NullPointerException("Entity is null");
-        Vector2 entityPos = entity.getPosition();
-        return isPositionInsideTrack(entityPos);
     }
 
     @Override
@@ -94,7 +91,7 @@ public class TileTrack implements Track{
     @Override
     public boolean hasEntityCrashed(Vector2 start, Vector2 end) {
         // TODO: check for invalid input.
-        if(!isPositionInsideTrack(end)) return true;
+        if(!isPositionInsideRoad(end)) return true;
         if(getTilesOnLine(start, end).contains(Tile.WALL)) return true;
         return false;
     }
@@ -119,37 +116,8 @@ public class TileTrack implements Track{
 
     private List<Tile> getTilesOnLine(Vector2 p1, Vector2 p2) {
         List<Tile> tiles = new ArrayList<>();
-
-        // Basically just Bresenham Algorithm.
-        // https://en.wikipedia.org/wiki/Bresenham%27s_line_algorithm#All_cases
-
-        int x0 = p1.x();
-        int y0 = p1.y();
-        int x1 = p2.x();
-        int y1 = p2.y();
-
-        int dx = Math.abs(x1-x0);
-        int sx = (x0 < x1) ? 1 : -1;
-        int dy = -Math.abs(y1-y0);
-        int sy = (y0 < y1) ? 1 : -1;
-        int error = dx+dy;
-
-        while(true){
-            tiles.add(getTileAtPosition(new Vector2(x0, y0)));
-            int e2 = 2 * error;
-
-            if(e2 >= dy) {
-                if(x0 == x1) break;
-                error += dy;
-                x0 += sx;
-            }
-            if(e2 <= dx){
-                if(y0 == y1) break;
-                error += dx;
-                y0 += sy;
-            }
-        }
-
+        for (Vector2 vec : Vector2.getAllVecsOfSegment(p1, p2))
+            tiles.add(getTileAtPosition(vec));
         return tiles;
     }
 }

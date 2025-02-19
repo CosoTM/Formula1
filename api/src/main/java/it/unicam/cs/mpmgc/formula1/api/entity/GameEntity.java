@@ -35,6 +35,8 @@ public abstract class GameEntity implements Entity{
     private boolean isAlive;
 
     public GameEntity(Vector2 startPos, char name){
+        // TODO: check for correct input
+
         currentPosition = startPos;
         currentAcceleration = new Vector2(0,0);
         this.name = name;

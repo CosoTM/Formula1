@@ -32,11 +32,14 @@ import it.unicam.cs.mpmgc.formula1.api.vector.Vector2;
 
 import java.util.Stack;
 
+/**
+ *
+ */
 public class SimpleStrategy implements Strategy {
     @Override
     public Vector2 decideNextMove(Vector2[] possiblePositions, Entity thisEntity, SimulationInfo sim) {
-
-        return possiblePositions[7];
+        return null;
     }
+
 
 }
