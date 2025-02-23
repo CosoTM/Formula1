@@ -31,6 +31,7 @@ import it.unicam.cs.mpmgc.formula1.api.track.TileTrack;
 import org.junit.jupiter.api.Test;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -39,7 +40,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 public class TileTrackHandlerTest {
 
     @Test
-    void CheckForTileTrackExistence(){
+    void CheckForTileTrackExistence() throws FileNotFoundException {
         File f = FileLoader.load("raceConfigTest1.txt");
         TileTrackHandler e = new TileTrackHandler(f);
         TileTrack tiles = e.handle();
@@ -48,7 +49,7 @@ public class TileTrackHandlerTest {
     }
 
     @Test
-    void CheckForNumberOfTilesTest(){
+    void CheckForNumberOfTilesTest() throws FileNotFoundException {
         File f = FileLoader.load("raceConfigTest1.txt");
         TileTrackHandler e = new TileTrackHandler(f);
         TileTrack tiles = e.handle();

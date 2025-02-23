@@ -27,6 +27,7 @@ package it.unicam.cs.mpmgc.formula1.api.configurator;
 import it.unicam.cs.mpmgc.formula1.api.entity.CarEntity;
 import it.unicam.cs.mpmgc.formula1.api.entity.Entity;
 import it.unicam.cs.mpmgc.formula1.api.handler.CarEntityHandler;
+import it.unicam.cs.mpmgc.formula1.api.handler.Handler;
 import it.unicam.cs.mpmgc.formula1.api.handler.TileTrackHandler;
 import it.unicam.cs.mpmgc.formula1.api.simulation.GameSimulation;
 import it.unicam.cs.mpmgc.formula1.api.simulation.Simulation;
@@ -34,6 +35,7 @@ import it.unicam.cs.mpmgc.formula1.api.track.Track;
 import it.unicam.cs.mpmgc.formula1.api.ui.ConsoleUserInterface;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.List;
 
 /**
@@ -41,23 +43,27 @@ import java.util.List;
  * Simulation} via a file.
  */
 public class FileGameConfigurator implements Configurator{
-
     private final File gameFile;
 
     public FileGameConfigurator(File gameFile) {
+        if(gameFile == null) throw new NullPointerException("File is null");
         this.gameFile = gameFile;
     }
 
     @Override
-    public Simulation configure() {
-        TileTrackHandler trackHandler = new TileTrackHandler(gameFile);
-        Track track = trackHandler.handle();
+    public Simulation configure(int secondPerStepInSimulation) {
+        try {
+            TileTrackHandler trackHandler = new TileTrackHandler(gameFile);
+            Track<?> track = trackHandler.handle();
 
-        CarEntityHandler entityHandler = new CarEntityHandler(gameFile);
-        List<Entity> entities = entityHandler.handle();
+            CarEntityHandler entityHandler = new CarEntityHandler(gameFile);
+            List<Entity> entities = entityHandler.handle();
+            ConsoleUserInterface UI = new ConsoleUserInterface();
 
-        ConsoleUserInterface UI = new ConsoleUserInterface();
-
-        return new GameSimulation(track, entities, UI);
+            return new GameSimulation(track, entities, UI, secondPerStepInSimulation);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 }

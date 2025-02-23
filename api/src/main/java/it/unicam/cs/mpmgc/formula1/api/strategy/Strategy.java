@@ -29,9 +29,9 @@ import it.unicam.cs.mpmgc.formula1.api.simulation.SimulationInfo;
 import it.unicam.cs.mpmgc.formula1.api.vector.Vector2;
 
 /**
- * A Strategy represents how an
- * {@link it.unicam.cs.mpmgc.formula1.api.entity.Entity Entity} decides to move
- * inside a {@link  it.unicam.cs.mpmgc.formula1.api.track.Track Track},
+ * A Strategy represents how a
+ * {@link it.unicam.cs.mpmgc.formula1.api.entity.CarEntity CarEntity} decides to
+ * move inside a {@link  it.unicam.cs.mpmgc.formula1.api.track.Track Track},
  * depending on any type of data related to the Simulation.
  */
 public interface Strategy {

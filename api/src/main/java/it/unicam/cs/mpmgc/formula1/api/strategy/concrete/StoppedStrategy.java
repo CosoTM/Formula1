@@ -31,6 +31,7 @@ import it.unicam.cs.mpmgc.formula1.api.vector.Vector2;
 
 /**
  * A Strategy that does nothing.
+ * Just for testing purposes.
  */
 public class StoppedStrategy implements Strategy {
     @Override

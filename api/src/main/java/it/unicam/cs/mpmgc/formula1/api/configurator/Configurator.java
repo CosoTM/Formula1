@@ -31,5 +31,5 @@ import it.unicam.cs.mpmgc.formula1.api.simulation.Simulation;
  * {@link it.unicam.cs.mpmgc.formula1.api.simulation.Simulation Simulation}.
  */
 public interface Configurator {
-    Simulation configure();
+    Simulation configure(int secondPerStepInSimulation);
 }

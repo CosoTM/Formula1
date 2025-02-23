@@ -25,19 +25,23 @@
 package it.unicam.cs.mpmgc.formula1.api.track;
 
 import it.unicam.cs.mpmgc.formula1.api.entity.Entity;
+import it.unicam.cs.mpmgc.formula1.api.strategy.StrategyString;
 import it.unicam.cs.mpmgc.formula1.api.vector.Vector2;
 
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- *
+ * A TileTrack uses tiles to build a Track. Each tile is a position an Entity
+ * could be at.
  */
-public class TileTrack implements Track{
+public class TileTrack implements Track<List<Tile>>{
     private final List<List<Tile>> track;
 
     public TileTrack(List<List<Tile>> track) {
-        // TODO: check if track is valid or throw exceptions.
+        if(track == null) throw new NullPointerException("Track is null");
+        if(track.isEmpty()) throw new IllegalArgumentException("The track is " +
+                "empty.");
         this.track = track;
     }
 
@@ -47,8 +51,9 @@ public class TileTrack implements Track{
     }
 
     @Override
-    public List<Vector2> getPositionAllWalls() {
-        return getPositionsOfTileType(Tile.WALL);
+    public List<Vector2> getAllPositionsOfElement(TrackElement element) {
+        if(element == null) throw new NullPointerException("Track Element is null");
+        return getPositionsOfTileType(Tile.trackElementToTile(element));
     }
 
     @Override
@@ -70,16 +75,16 @@ public class TileTrack implements Track{
 
     @Override
     public boolean isEntityOnFinishLine(Entity entity) {
-        // TODO: finish
-        return false;
+        List<Vector2> victories = getPositionsOfTileType(Tile.VICTORY);
+        return victories.contains(entity.getPosition());
     }
 
     @Override
     public void putEntitiesOnStart(List<? extends Entity> entities) {
-        // TODO: check for invalid input.
+        if(entities == null) throw new NullPointerException("Entities are null");
+        if(entities.isEmpty()) return;
 
         List<Vector2> positionOfStart = getPositionsOfTileType(Tile.START);
-        // TODO: dont really like this. find a better way.
         if(entities.size() > positionOfStart.size()) System.out.println("There are " +
                 "more entities than positions available for the start. Some " +
                 "entities will not be placed.");
@@ -90,20 +95,20 @@ public class TileTrack implements Track{
 
     @Override
     public boolean hasEntityCrashed(Vector2 start, Vector2 end) {
-        // TODO: check for invalid input.
+        if(start == null) throw new NullPointerException("Start vector is null");
+        if(end == null) throw new NullPointerException("End vector is null");
+
         if(!isPositionInsideRoad(end)) return true;
-        if(getTilesOnLine(start, end).contains(Tile.WALL)) return true;
+        if(getTilesOnSegment(start, end).contains(Tile.WALL)) return true;
         return false;
     }
 
-    public Tile getTileAtPosition(Vector2 pos){
-        if(pos == null) throw new NullPointerException("Position is null");
-        if(!isPositionValid(pos)) throw new IllegalArgumentException("Position " +
-                "isnt valid.");
+    private Tile getTileAtPosition(Vector2 pos){
         return track.get(pos.y()).get(pos.x());
     }
 
-    public List<Vector2> getPositionsOfTileType(Tile tileType){
+    // Gets all the position a specific type of tile in the track.
+    private List<Vector2> getPositionsOfTileType(Tile tileType){
         List<Vector2> positions = new ArrayList<>();
         for (int y = 0; y < track.size(); y++) {
             for (int x = 0; x < track.get(y).size(); x++) {
@@ -114,7 +119,8 @@ public class TileTrack implements Track{
         return positions;
     }
 
-    private List<Tile> getTilesOnLine(Vector2 p1, Vector2 p2) {
+    // Returns all the tiles on a segment starting at p1 and ending at p2.
+    private List<Tile> getTilesOnSegment(Vector2 p1, Vector2 p2) {
         List<Tile> tiles = new ArrayList<>();
         for (Vector2 vec : Vector2.getAllVecsOfSegment(p1, p2))
             tiles.add(getTileAtPosition(vec));

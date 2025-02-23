@@ -22,46 +22,43 @@
  * SOFTWARE.
  */
 
-package it.unicam.cs.mpmgc.formula1.api.track;
+package it.unicam.cs.mpmgc.formula1.api.strategy.graph;
 
-/**
- * Lists all possible Tiles for a {@link TileTrack} and what
- * {@link TrackElement} they rappresent.
- */
-public enum Tile {
-    WALL('#', TrackElement.WALL),
-    START('^', TrackElement.START),
-    VICTORY('-', TrackElement.VICTORY),
-    ROAD('.', TrackElement.ROAD),
-    AIR(' ', TrackElement.AIR);
-
-    private final char tile;
-    private final TrackElement element;
-
-    Tile(char tile, TrackElement element) {
-        this.tile = tile;
-        this.element = element;
+public record GraphNode<T>(T label) {
+    public GraphNode {
+        if (label == null)
+            throw new NullPointerException("Label is null");
     }
 
-    public static Tile charToTile(char character){
-        for (Tile tile : Tile.values())
-            if (tile.tile == character) return tile;
-
-        return null;
+    /**
+     * Returns the label of this node.
+     * @return the label
+     */
+    public T getLabel() {
+        return label;
     }
 
-    public static Tile trackElementToTile(TrackElement element){
-        for (Tile tile : Tile.values())
-            if (tile.element == element) return tile;
-
-        return null;
+    @Override
+    public int hashCode() {
+        return this.label.hashCode();
     }
 
-    public char tile(){
-        return tile;
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (!(obj instanceof GraphNode))
+            return false;
+        GraphNode<?> other = (GraphNode<?>) obj;
+        if (this.label.equals(other.label))
+            return true;
+        return false;
     }
 
-    public TrackElement element() {
-        return element;
+    @Override
+    public String toString() {
+        return "Nodo[ " + label.toString() + " ]";
     }
 }

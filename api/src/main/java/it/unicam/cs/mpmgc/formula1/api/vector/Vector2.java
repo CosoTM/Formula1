@@ -25,6 +25,7 @@
 package it.unicam.cs.mpmgc.formula1.api.vector;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.UnaryOperator;
 
 /**
  * Represent a Vector in 2d with an x component and a y component.
@@ -33,11 +34,36 @@ public record Vector2(int x, int y){
     public int x() {return x;}
     public int y() {return y;}
 
+    /**
+     * Sums this vector with the one passed as parameter.
+     * @param vector a vector
+     * @return the sum of this vector with the one passed as parameter.
+     */
     public Vector2 sum(Vector2 vector) {
         return new Vector2(
           x + vector.x,
           y + vector.y
         );
+    }
+
+    /**
+     * Subtracts this vector with the one passed as parameter.
+     * @param vector a vector
+     * @return the subtraction of this vector with the one passed as parameter.
+     */
+    public Vector2 substr(Vector2 vector){
+        return new Vector2(
+                x - vector.x,
+                y - vector.y
+        );
+    }
+
+    /**
+     * Returns the length of this vector.
+     * @return the length of this vector.
+     */
+    public int length(){
+        return (int)Math.hypot(x, y);
     }
 
     /**

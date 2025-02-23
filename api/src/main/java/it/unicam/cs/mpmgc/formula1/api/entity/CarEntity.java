@@ -38,24 +38,22 @@ public class CarEntity extends GameEntity{
 
     public CarEntity(Vector2 startPos, char name, Strategy strategy) {
         super(startPos, name);
+        if(strategy == null) throw new NullPointerException("Startegy is null");
         this.strategy = strategy;
     }
 
     @Override
     public void nextMove(SimulationInfo sim) {
-        // TODO: check for invalid input
-
-        Vector2 decidedMove = strategy.decideNextMove(getPossibleMoves(),this,
+        if (sim == null) throw new NullPointerException("Simulation is null");
+        Vector2 decidedMove = strategy.decideNextMove(getPossibleMoves(getAcceleration()),this,
                 sim );
 
         setPosition(getPosition().sum(decidedMove));
         setAcceleration(decidedMove);
     }
 
-    private Vector2[] getPossibleMoves() {
+    public static Vector2[] getPossibleMoves(Vector2 acceleration) {
         // TODO: I can surely make this better but for now it works.
-
-        Vector2 acceleration = getAcceleration();
         return new Vector2[]{
                 new Vector2(-1, -1).sum(acceleration),
                 new Vector2(0, -1).sum(acceleration),

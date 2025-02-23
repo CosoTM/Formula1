@@ -25,12 +25,11 @@
 package it.unicam.cs.mpmgc.formula1.api.simulation;
 
 /**
- * Represents a Game Simulation. It can be chosen to make the simulation go
- * automatically or manually.
+ * Represents a Game Simulation.
  */
 public interface Simulation {
     /**
-     * Makes a step forward in the Simulation.
+     * Makes the simulation start.
      */
     void start() throws InterruptedException;
 }

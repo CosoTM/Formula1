@@ -38,42 +38,37 @@ import java.util.*;
  * Handles and loads everything that has to do with the {@link Entity Entities}
  * of the game simulation.
  */
-public class CarEntityHandler implements Handler<List<Entity>>{
-    private final File file;
-
-    public CarEntityHandler(File file) {
-        this.file = file;
+public class CarEntityHandler extends ScannerFileHandler<List<Entity>> {
+    public CarEntityHandler(File file) throws FileNotFoundException {
+        super(file);
     }
 
     @Override
     public List<Entity> handle() {
-        try {
-            Scanner scanner = new Scanner(file);
-            String currentLine = "";
+        String currentLine = "";
 
-            while(!currentLine.equals("$"))
-                currentLine = scanner.nextLine();
+        while(!currentLine.equals("$"))
+            currentLine = scanner.nextLine();
 
 
-            List<Entity> entities = new ArrayList<>();
-            while(scanner.hasNextLine()){
-                String[] l = scanner.nextLine().split("\\s+");
-                entities.add(createCarEntity(
-                        StrategyString.stringToStrategy(l[0]),
-                        l[1].charAt(0)) //TODO: this fails completely if in the config file there's nothing after the bot
-                );
-            }
-            scanner.close();
-
-            return entities;
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
+        if(!scanner.hasNextLine()) throw new IllegalArgumentException("No " +
+                "cars are registered in the file");
+        List<Entity> entities = new ArrayList<>();
+        while(scanner.hasNextLine()){
+            String[] l = scanner.nextLine().split("\\s+");
+            if(l.length != 2) throw new IllegalArgumentException("The " +
+                    "Cars in the file are not formatted correctly. " +
+                    "Cars are declared like: \"Startegy Name Letter\".");
+            entities.add(createCarEntity(
+                    StrategyString.stringToStrategy(l[0]),
+                    l[1].charAt(0))
+            );
         }
-
-        return null;
+        scanner.close();
+        return entities;
     }
 
-    private CarEntity createCarEntity(StrategyString strat, char name){
+    private Entity createCarEntity(StrategyString strat, char name){
         return new CarEntity(
           new Vector2(0,0),
           name,

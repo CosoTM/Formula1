@@ -31,44 +31,32 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
 
 /**
  * Handles and loads everything that has to do with the {@link TileTrack}
  * for the game simulation.
  */
-public class TileTrackHandler implements Handler<TileTrack>{
-    private final File file;
-
-    public TileTrackHandler(File file) {
-        this.file = file;
+public class TileTrackHandler extends ScannerFileHandler<TileTrack> {
+    public TileTrackHandler(File file) throws FileNotFoundException {
+        super(file);
     }
-
 
     @Override
     public TileTrack handle() {
-        try {
-            Scanner scanner = new Scanner(file);
-            List<List<Tile>> tileMatrix = new ArrayList<>();
+        List<List<Tile>> tileMatrix = new ArrayList<>();
 
-            String currentLine = scanner.nextLine();
-            int i = 0;
-            while(!currentLine.equals("$")){
-                tileMatrix.add(new ArrayList<>());
-                for (int j = 0; j < currentLine.length(); j++)
-                    tileMatrix.get(i).add(Tile.charToTile(currentLine.charAt(j)));
+        String currentLine = scanner.nextLine();
+        int i = 0;
+        while(!currentLine.equals("$")){
+            tileMatrix.add(new ArrayList<>());
+            for (int j = 0; j < currentLine.length(); j++)
+                tileMatrix.get(i).add(Tile.charToTile(currentLine.charAt(j)));
 
-                currentLine = scanner.nextLine();
-                i++;
-            }
-            scanner.close();
-
-            return new TileTrack(tileMatrix);
-
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
+            currentLine = scanner.nextLine();
+            i++;
         }
+        scanner.close();
 
-        return null;
+        return new TileTrack(tileMatrix);
     }
 }

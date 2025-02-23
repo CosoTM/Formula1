@@ -43,7 +43,6 @@ public class ConsoleUserInterface implements UserInterface{
     private final String letterForAutomatic;
     private String lastInput = "";
     private List<List<Character>> unmodifiedTrack = null;
-
     private String toPrintAfterUpdate = "";
 
 
@@ -52,17 +51,15 @@ public class ConsoleUserInterface implements UserInterface{
     }
 
     public ConsoleUserInterface(char letterForAutomatic ) {
-        // TODO: check for invalid input
-
         this.letterForAutomatic = String.valueOf(letterForAutomatic).toUpperCase();
     }
 
     @Override
     public void updateUI(Track track, List<? extends Entity> entities) {
-        // TODO: check for invalid input
+        if (track == null) throw new NullPointerException("track is null");
+        if (entities == null) throw new NullPointerException("Entities are null");
 
         trySetUnmodifiedTrack(track);
-        //List<List<Character>> copy = new ArrayList<>(unmodifiedTrack);
 
         for (Entity entity : entities) {
             Vector2 pos = entity.getPosition();
@@ -90,8 +87,7 @@ public class ConsoleUserInterface implements UserInterface{
         toPrintAfterUpdate += string + "\n";
     }
 
-    private void trySetUnmodifiedTrack(Track track){
-        //if (unmodifiedTrack == null)
+    private void trySetUnmodifiedTrack(Track<List<Tile>> track){
         unmodifiedTrack = track.getWholeTrack()
                 .stream()
                 .map(r -> r.stream()
@@ -101,7 +97,6 @@ public class ConsoleUserInterface implements UserInterface{
     }
 
     private void printEverything(List<List<Character>> toPrint) {
-        //System.out.println();
         for (List<Character> row : toPrint) {
             for (Character tile : row) {
                 System.out.print(tile);

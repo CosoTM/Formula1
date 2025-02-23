@@ -24,6 +24,8 @@
 
 package it.unicam.cs.mpmgc.formula1.api.handler;
 
+import java.io.FileNotFoundException;
+
 /**
  * Represents those objects that have the responsibility to handle and load core
  * mechanics and data of the game.
@@ -33,6 +35,8 @@ public interface Handler<T> {
     /**
      * Depending on the Handler, this method will return the "handled" data.
      * @return the "Handled" data.
+     * @throws IllegalArgumentException If something is wrong in the format of
+     *                                  what the handler is handling.
      */
-    T handle();
+    T handle() throws IllegalArgumentException;
 }

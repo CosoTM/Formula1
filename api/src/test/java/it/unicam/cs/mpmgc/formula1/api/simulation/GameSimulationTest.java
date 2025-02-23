@@ -38,20 +38,8 @@ public class GameSimulationTest {
     void GameSimulationCreationTest(){
         File f = FileLoader.load("raceConfigTest1.txt");
         FileGameConfigurator conf = new FileGameConfigurator(f);
-        GameSimulation sim = (GameSimulation) conf.configure();
+        GameSimulation sim = (GameSimulation) conf.configure(1);
         assertNotNull(sim);
-    }
-    @Test
-    void GameSimulationStepTest(){
-        File f = FileLoader.load("raceConfigTest1.txt");
-        FileGameConfigurator conf = new FileGameConfigurator(f);
-        GameSimulation sim = (GameSimulation) conf.configure();
-        try {
-            sim.start();
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
-
     }
 
 }

@@ -31,19 +31,22 @@ import java.util.List;
 
 /**
  * Represents a Formula1 track.
+ * @param <T> The type of data the track uses to save its track information.
  */
-public interface Track {
+public interface Track<T> {
     /**
      * Returns the whole Track.
      * @return the whole Track.
      */
-    List<List<Tile>> getWholeTrack();
+    List<T> getWholeTrack();
 
     /**
-     * Returns a List of every position of every wall in the track.
-     * @return a List of every position of every wall in the track.
+     * Returns a List of every position of a {@link TrackElement} sent as
+     * parameter.
+     * @return a List of every position of a {@link TrackElement} sent as
+     * parameter.
      */
-    List<Vector2> getPositionAllWalls();
+    List<Vector2> getAllPositionsOfElement(TrackElement element);
 
     /**
      * Checks if the position is valid inside the Track. "Valid" means being in

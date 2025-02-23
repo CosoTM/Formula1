@@ -22,24 +22,23 @@
  * SOFTWARE.
  */
 
-package it.unicam.cs.mpmgc.formula1.api.strategy.concrete;
+package it.unicam.cs.mpmgc.formula1.api.handler;
 
-import it.unicam.cs.mpmgc.formula1.api.entity.Entity;
-import it.unicam.cs.mpmgc.formula1.api.strategy.Strategy;
-import it.unicam.cs.mpmgc.formula1.api.simulation.SimulationInfo;
-import it.unicam.cs.mpmgc.formula1.api.track.Track;
-import it.unicam.cs.mpmgc.formula1.api.vector.Vector2;
-
-import java.util.Stack;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.Scanner;
 
 /**
- *
+ * Represents all those Handlers that work with a file and a {@link Scanner}.
+ * @param <T> The type of data the Handler works with.
  */
-public class SimpleStrategy implements Strategy {
-    @Override
-    public Vector2 decideNextMove(Vector2[] possiblePositions, Entity thisEntity, SimulationInfo sim) {
-        return null;
+public abstract class ScannerFileHandler<T> implements Handler<T>{
+    protected final File file;
+    protected final Scanner scanner;
+
+    protected ScannerFileHandler(File file) throws FileNotFoundException {
+        if (file == null) throw new NullPointerException("File is null");
+        this.file = file;
+        scanner = new Scanner(file);
     }
-
-
 }

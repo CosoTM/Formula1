@@ -30,8 +30,9 @@ package it.unicam.cs.mpmgc.formula1.api.strategy;
 public enum StrategyString {
     STOPPED_STRATEGY("stopped-bot"),
     RANDOM_STRATEGY("random-bot"),
-    SIMPLE_STRATEGY("simple-bot"),
-    PLAYER_STRATEGY("player");
+    PLAYER_STRATEGY("player"),
+    BFS_STRATEGY("bfs-bot"),
+    DFS_STRATEGY("dfs-bot");
 
     private final String strategy;
 
@@ -42,5 +43,9 @@ public enum StrategyString {
         for (StrategyString strat : StrategyString.values())
             if (strat.strategy.equals(lowercase)) return strat;
         return null;
+    }
+
+    public String getStrategyString(){
+        return strategy;
     }
 }

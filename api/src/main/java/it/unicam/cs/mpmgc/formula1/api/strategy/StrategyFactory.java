@@ -24,10 +24,7 @@
 
 package it.unicam.cs.mpmgc.formula1.api.strategy;
 
-import it.unicam.cs.mpmgc.formula1.api.strategy.concrete.PlayerStrategy;
-import it.unicam.cs.mpmgc.formula1.api.strategy.concrete.RandomStrategy;
-import it.unicam.cs.mpmgc.formula1.api.strategy.concrete.SimpleStrategy;
-import it.unicam.cs.mpmgc.formula1.api.strategy.concrete.StoppedStrategy;
+import it.unicam.cs.mpmgc.formula1.api.strategy.concrete.*;
 
 /**
  * Factory for Strategies.
@@ -45,9 +42,10 @@ public final class StrategyFactory {
         return switch (strat){
             case STOPPED_STRATEGY-> new StoppedStrategy();
             case RANDOM_STRATEGY -> new RandomStrategy();
-            case SIMPLE_STRATEGY -> new SimpleStrategy();
+            case BFS_STRATEGY   -> new BFSStrategy();
+            case DFS_STRATEGY   -> new DFSStrategy();
             case PLAYER_STRATEGY -> new PlayerStrategy();
-            case null -> new StoppedStrategy();
+            case null -> new BFSStrategy();
         };
 
     }

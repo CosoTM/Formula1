@@ -30,13 +30,14 @@ import it.unicam.cs.mpmgc.formula1.api.file.FileLoader;
 import org.junit.jupiter.api.Test;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 public class CarEntityHandlerTest {
     @Test
-    void CheckForTileTrackExistence(){
+    void CheckForTileTrackExistence() throws FileNotFoundException {
         File f = FileLoader.load("raceConfigTest1.txt");
         CarEntityHandler e = new CarEntityHandler(f);
         List<Entity> entities = e.handle();
@@ -46,11 +47,38 @@ public class CarEntityHandlerTest {
     }
 
     @Test
-    void CheckNumberOfEntitiesTest(){
-        File f = FileLoader.load("raceConfigTest1.txt");
-        CarEntityHandler e = new CarEntityHandler(f);
-        List<Entity> entities = e.handle();
+    void CheckNumberOfEntitiesTest() throws FileNotFoundException {
+        File f1 = FileLoader.load("raceConfigTest1.txt");
+        CarEntityHandler e1 = new CarEntityHandler(f1);
+        List<Entity> entities1 = e1.handle();
 
-        assertEquals(5, entities.size());
+        assertEquals(5, entities1.size());
+
+        File f2 = FileLoader.load("raceConfigTest2.txt");
+        CarEntityHandler e2 = new CarEntityHandler(f2);
+        List<Entity> entities2 = e2.handle();
+
+        assertEquals(1, entities2.size());
+    }
+
+    @Test
+    void TestForWrongFormatOfFileNoName() throws FileNotFoundException {
+        File f = FileLoader.load("raceConfigTest3.txt");
+        CarEntityHandler e = new CarEntityHandler(f);
+        assertThrows(IllegalArgumentException.class, e::handle);
+    }
+
+    @Test
+    void TestForWrongFormatOfFileNoStrategy() throws FileNotFoundException {
+        File f = FileLoader.load("raceConfigTest4.txt");
+        CarEntityHandler e = new CarEntityHandler(f);
+        assertThrows(IllegalArgumentException.class, e::handle);
+    }
+
+    @Test
+    void TestForWrongFormatOfFileNothing() throws FileNotFoundException {
+        File f = FileLoader.load("raceConfigTest5.txt");
+        CarEntityHandler e = new CarEntityHandler(f);
+        assertThrows(IllegalArgumentException.class, e::handle);
     }
 }

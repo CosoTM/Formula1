@@ -28,6 +28,9 @@ import it.unicam.cs.mpmgc.formula1.api.vector.Vector2;
 
 import javax.swing.text.Position;
 
+/**
+ * Represents an entity with a name, a position and an acceleration in-game.
+ */
 public abstract class GameEntity implements Entity{
     private final char name;
     private Vector2 currentPosition;
@@ -35,7 +38,7 @@ public abstract class GameEntity implements Entity{
     private boolean isAlive;
 
     public GameEntity(Vector2 startPos, char name){
-        // TODO: check for correct input
+        if(startPos == null) throw new NullPointerException("Starting Position is null");
 
         currentPosition = startPos;
         currentAcceleration = new Vector2(0,0);

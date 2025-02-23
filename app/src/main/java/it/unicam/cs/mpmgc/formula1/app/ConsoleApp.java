@@ -32,15 +32,13 @@ import java.io.File;
 
 public class ConsoleApp {
     public static void main(String[] args) {
-
         File f = FileLoader.load("raceConfigTest1.txt");
         FileGameConfigurator conf = new FileGameConfigurator(f);
-        GameSimulation sim = (GameSimulation) conf.configure();
+        GameSimulation sim = (GameSimulation) conf.configure(1);
         try {
             sim.start();
         } catch (InterruptedException e) {
-            throw new RuntimeException(e);
+            e.printStackTrace();
         }
-
     }
 }

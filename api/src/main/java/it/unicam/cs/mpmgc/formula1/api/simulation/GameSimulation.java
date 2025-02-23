@@ -29,26 +29,35 @@ import it.unicam.cs.mpmgc.formula1.api.track.Track;
 import it.unicam.cs.mpmgc.formula1.api.ui.UserInterface;
 import it.unicam.cs.mpmgc.formula1.api.vector.Vector2;
 
+import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Implementation of a Simulation.
+ */
 public class GameSimulation implements Simulation{
-    private final Track track;
+    private final Track<?> track;
     private final UserInterface UI;
+    private final List<Entity> entityList;
     private final List<Entity> aliveEntities;
     private final int stepTime;
     private boolean isOngoing;
 
-    public GameSimulation(Track track, List<Entity> entities, UserInterface UI) {
-        // TODO: check for invalid input
+    public GameSimulation(Track<?> track, List<Entity> entities,
+                          UserInterface UI) {
         this(track, entities, UI, 1);
     }
 
-    public GameSimulation(Track track, List<Entity> entities, UserInterface UI,
+    public GameSimulation(Track<?> track, List<Entity> entities, UserInterface UI,
                           int secondsPerStep) {
-        // TODO: check for invalid input
+        if(track == null) throw new NullPointerException("Track is null");
+        if(entities == null) throw new NullPointerException("Entities are null");
+        if(UI == null) throw new NullPointerException("UI is null");
+
         this.track = track;
         this.UI = UI;
-        aliveEntities = entities;
+        entityList = new ArrayList<>(entities);
+        aliveEntities = new ArrayList<>(entities);
         stepTime = secondsPerStep * 1000;
 
         isOngoing = true;
@@ -58,8 +67,9 @@ public class GameSimulation implements Simulation{
 
     @Override
     public void start() throws InterruptedException {
-        while(isOngoing && !aliveEntities.isEmpty()){
-            for (Entity entity: aliveEntities) {
+        while(isOngoing){
+            for (Entity entity: entityList) {
+                if(!isOngoing) break;
                 updateUIandStep();
                 handleEntity(entity);
             }
@@ -67,11 +77,12 @@ public class GameSimulation implements Simulation{
     }
 
     private void handleEntity(Entity entity) {
+        if(!entity.isAlive()) return;
         Vector2 before = entity.getPosition();
-        entity.nextMove(new SimulationInfo(track, aliveEntities, UI));
+        entity.nextMove(new SimulationInfo(track, entityList, UI));
 
         if(track.hasEntityCrashed(before, entity.getPosition())) handleEntityCrash(entity);
-        if(track.isEntityOnFinishLine(entity) || aliveEntities.size() == 1) handlerEntityWin(entity);
+        else if(track.isEntityOnFinishLine(entity) || aliveEntities.size() == 1) handlerEntityWin(entity);
     }
 
     private void updateUIandStep() throws InterruptedException {
@@ -90,11 +101,10 @@ public class GameSimulation implements Simulation{
     }
 
     private void handlerEntityWin(Entity car) {
-        // TODO: Winning logic
-        // TODO: something with UI
-
         isOngoing = false;
         UI.showAfterUpdate(car.getName() +" won.");
+
+        UI.updateUI(track, aliveEntities);
     }
 
 

@@ -27,7 +27,6 @@ package it.unicam.cs.mpmgc.formula1.api.configurator;
 import org.junit.jupiter.api.Test;
 
 public class FileGameConfiguratorTest {
-
     @Test
     void testConfiguratorCreates(){
 

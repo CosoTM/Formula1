@@ -22,22 +22,16 @@
  * SOFTWARE.
  */
 
-package it.unicam.cs.mpmgc.formula1.api.strategy.concrete;
-
-import it.unicam.cs.mpmgc.formula1.api.entity.Entity;
-import it.unicam.cs.mpmgc.formula1.api.simulation.SimulationInfo;
-import it.unicam.cs.mpmgc.formula1.api.strategy.Strategy;
-import it.unicam.cs.mpmgc.formula1.api.vector.Vector2;
+package it.unicam.cs.mpmgc.formula1.api.track;
 
 /**
- * A bot following this strategy will try to find a wall, and follow it until
- * it finds the finish line. It controls its velocity to always stay at 1 unit
- * of acceleration. Even though this is not the best strategy, it will never
- * crash into a wall.
+ * Any type of track of any kind of format can contain these and only these
+ * elements.
  */
-public class NaiveStrategy implements Strategy {
-    @Override
-    public Vector2 decideNextMove(Vector2[] possiblePositions, Entity thisEntity, SimulationInfo sim) {
-        return null;
-    }
+public enum TrackElement {
+    WALL,
+    START,
+    VICTORY,
+    ROAD,
+    AIR
 }
